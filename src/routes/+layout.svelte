@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-    <script defer data-domain="example.com" src="https://analytics.izmichael.com/js/script.js"></script>
+    <script defer data-domain="voix.izmichael.com" src="https://analytics.izmichael.com/js/script.js"></script>
 
     <!-- Primary Meta Tags -->
     <meta name="title" content="Svelte App" />
