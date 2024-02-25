@@ -9,7 +9,7 @@
     let xclass: string | undefined;
 
     const variants = {
-        filled: 'bg-gray-100 text-black hover:bg-gray-200 border border-gray-300',
+        filled: 'bg-gray-100 text-black hover:bg-gray-200',
         outline: 'bg-transparent border border-gray-400 hover:bg-gray-100 hover:border-gray-900',
         ghost: 'bg-transparent hover:bg-gray-100',
         default: '',
