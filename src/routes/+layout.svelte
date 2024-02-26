@@ -1,6 +1,8 @@
 <script lang="ts">
     import '../app.css';
     import '../fonts.css';
+
+    import Toasts from '$lib/toasts/Toasts.svelte';
 </script>
 
 <svelte:head>
@@ -25,6 +27,7 @@
     <meta property="twitter:image" content="https://example.com/cover.png" />
 </svelte:head>
 
+<Toasts />
 <slot />
 
 <style>
