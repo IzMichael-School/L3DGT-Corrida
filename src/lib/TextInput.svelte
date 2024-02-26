@@ -14,7 +14,7 @@
         ghost: 'bg-transparent hover:bg-gray-100',
         default: '',
     };
-    variants.default = variants.filled;
+    variants.default = variants.outline;
 </script>
 
 {#if rows == 1}

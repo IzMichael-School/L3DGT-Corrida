@@ -120,7 +120,7 @@
                 <hr class="my-8 w-full border-t-2" />
 
                 <p class="w-full pl-1 font-bold">Your Nickname</p>
-                <TextInput bind:value={nickname} variant="filled" class="w-full" placeholder="What do we call you?" />
+                <TextInput bind:value={nickname} class="w-full" placeholder="What do we call you?" />
 
                 <h2 class="mt-10 text-xl font-bold">Sit Tight! We'll be starting soon.</h2>
             </div>
@@ -143,7 +143,6 @@
                 <p class="w-full pl-1 font-bold">Your Nickname</p>
                 <TextInput
                     bind:value={nickname}
-                    variant="filled"
                     class="-mt-4 mb-10 w-full"
                     placeholder="What do we call you?"
                 />

@@ -27,7 +27,6 @@
         </Button>
 
         <TextInput
-            variant="filled"
             class="my-0 w-24 min-w-24 text-center"
             type="number"
             placeholder="000"
