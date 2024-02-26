@@ -5,9 +5,11 @@
     import { nanoid } from 'nanoid';
     import { goto } from '$app/navigation';
     import type { Question } from '$lib/pocketbase';
+    import BooleanInput from '$lib/BooleanInput.svelte';
+    import * as Toast from '$lib/toasts/toast';
+    import Confirm from '$lib/Confirm.svelte';
 
     import type { PageData } from './$types';
-    import BooleanInput from '$lib/BooleanInput.svelte';
     export let data: PageData;
 
     function swap(array: Question[], x: number, y: number) {
@@ -23,31 +25,42 @@
         <h1 class="text-2xl font-bold">Survey Editor</h1>
 
         <p class="mt-5 w-full text-left text-sm">Survey Title</p>
-        <TextInput bind:value={data.title} variant="filled" class="mb-0 w-full" />
+        <TextInput bind:value={data.title} class="mb-0 w-full" />
 
-        <span class="flex-1 px-1" />
+        <span class="flex-1" />
 
-        <Button
-            variant="danger"
-            on:click={async () => {
+        <Confirm
+            action={async () => {
+                let working = Toast.add('Deleting...', {
+                    type: 'warning',
+                });
+                goto('/app/surveys');
                 await fetch('/app/surveys/edit/' + data.id, {
                     method: 'DELETE',
                 });
-                goto('/app/surveys');
+                Toast.dismiss(working);
+                Toast.add('Deleted Survey.', {
+                    type: 'success',
+                });
             }}
-            class="mb-2"
         >
-            Delete Survey
-        </Button>
+            <Button variant="danger" class="mb-2">Delete Survey</Button>
+        </Confirm>
 
         <Button
             variant="primary"
             on:click={async () => {
+                let working = Toast.add('Saving...', {
+                    type: 'info',
+                });
                 await fetch('/app/surveys/edit/' + data.id, {
                     method: 'PUT',
                     body: JSON.stringify(data),
                 });
-                goto('/app/surveys');
+                Toast.dismiss(working);
+                Toast.add('Saved Changes.', {
+                    type: 'success',
+                });
             }}
         >
             Save Changes
@@ -71,16 +84,11 @@
                     <p class="min-w-[12rem]">Question Type</p>
                 </div>
                 <div class="mt-1 flex w-full flex-row items-center justify-between gap-5">
-                    <TextInput
-                        bind:value={question.label}
-                        variant="filled"
-                        class="my-0 flex-1"
-                        placeholder="Ask any question..."
-                    />
+                    <TextInput bind:value={question.label} class="my-0 flex-1" placeholder="Ask any question..." />
 
                     <select
                         bind:value={question.type}
-                        class="min-w-[12rem] rounded-lg bg-gray-100 p-2.5 font-normal text-black outline-none hover:bg-gray-200"
+                        class="min-w-[12rem] rounded-lg border border-gray-300 bg-gray-100 p-2.5 font-normal text-black outline-none hover:bg-gray-200"
                         on:change={() => {
                             if (question.type == 'boolean') {
                                 question.options.true = '';
