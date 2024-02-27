@@ -33,6 +33,7 @@
             action={async () => {
                 let working = Toast.add('Deleting...', {
                     type: 'warning',
+                    timeout: 60 * 60 * 1000,
                 });
                 goto('/app/surveys');
                 await fetch('/app/surveys/edit/' + data.id, {
@@ -52,6 +53,7 @@
             on:click={async () => {
                 let working = Toast.add('Saving...', {
                     type: 'info',
+                    timeout: 60 * 60 * 1000,
                 });
                 await fetch('/app/surveys/edit/' + data.id, {
                     method: 'PUT',

@@ -66,6 +66,7 @@
                 action={async () => {
                     let working = Toast.add('Deleting...', {
                         type: 'warning',
+                        timeout: 60 * 60 * 1000,
                     });
                     goto('/app/rooms');
                     await fetch('/app/rooms/' + data.room.id, {
@@ -85,6 +86,7 @@
                 on:click={async () => {
                     let working = Toast.add('Saving...', {
                         type: 'info',
+                        timeout: 60 * 60 * 1000,
                     });
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
@@ -108,6 +110,7 @@
                 on:click={async () => {
                     let working = Toast.add('Setting to "Waiting"...', {
                         type: 'info',
+                        timeout: 60 * 60 * 1000,
                     });
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
@@ -130,6 +133,7 @@
                 on:click={async () => {
                     let working = Toast.add('Setting to "Active"...', {
                         type: 'info',
+                        timeout: 60 * 60 * 1000,
                     });
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
@@ -152,6 +156,7 @@
                 on:click={async () => {
                     let working = Toast.add('Setting to "Closed"...', {
                         type: 'info',
+                        timeout: 60 * 60 * 1000,
                     });
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
