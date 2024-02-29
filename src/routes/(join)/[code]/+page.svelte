@@ -57,7 +57,7 @@
         ) ?? []) {
             tests.push(answers[b.id] != '');
         }
-        return !tests.includes(false);
+        return !tests.includes(false) && nickname?.length > 0;
     }
 
     function download(filename: string, text: string) {
@@ -107,7 +107,7 @@
                 {/if}
             </div>
             <div class="flex flex-1 flex-col items-center justify-center px-5 py-2 lg:w-2/3 lg:px-0">
-                <h1 class="text-3xl font-bold">{data.title}</h1>
+                <h1 class="text-center text-3xl font-bold">{data.title}</h1>
                 <h2 class="mt-1 text-xl font-bold">
                     hosted by <img
                         src={pb.files.getUrl(data.expand?.owner, data.expand?.owner.avatar)}
@@ -119,7 +119,9 @@
 
                 <hr class="my-8 w-full border-t-2" />
 
-                <p class="w-full pl-1 font-bold">Your Nickname</p>
+                <p class="w-full pl-1 font-bold">
+                    Your Nickname <span class="text-red-600">*</span>
+                </p>
                 <TextInput bind:value={nickname} class="w-full" placeholder="What do we call you?" />
 
                 <h2 class="mt-10 text-xl font-bold">Sit Tight! We'll be starting soon.</h2>
@@ -128,7 +130,7 @@
     {:else if data.state == 'active' && !submitted}
         <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-auto shadow-lg">
             <div class="flex flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
-                <h1 class="text-3xl font-bold">{data.title}</h1>
+                <h1 class="text-center text-3xl font-bold">{data.title}</h1>
                 <h2 class="-mt-4 text-xl font-bold">
                     hosted by <img
                         src={pb.files.getUrl(data.expand?.owner, data.expand?.owner.avatar)}
@@ -140,12 +142,10 @@
 
                 <hr class="my-8 w-full border-t-2" />
 
-                <p class="w-full pl-1 font-bold">Your Nickname</p>
-                <TextInput
-                    bind:value={nickname}
-                    class="-mt-4 mb-10 w-full"
-                    placeholder="What do we call you?"
-                />
+                <p class="w-full pl-1 font-bold">
+                    Your Nickname <span class="text-red-600">*</span>
+                </p>
+                <TextInput bind:value={nickname} class="-mt-4 mb-10 w-full" placeholder="What do we call you?" />
 
                 {#if ready}
                     {#each data.expand?.survey.questions ?? [] as question, i}
