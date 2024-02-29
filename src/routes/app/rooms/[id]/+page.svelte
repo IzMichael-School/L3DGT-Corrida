@@ -5,13 +5,14 @@
     import { flip } from 'svelte/animate';
     import { onDestroy, onMount } from 'svelte';
     import { pb, type Question } from '$lib/pocketbase';
-    import type { UnsubscribeFunc } from 'pocketbase';
+    import type { RecordSubscription, UnsubscribeFunc } from 'pocketbase';
     import SurveyPicker from '$lib/SurveyPicker.svelte';
     import { goto } from '$app/navigation';
     import * as Toast from '$lib/toasts/toast';
     import Confirm from '$lib/Confirm.svelte';
 
     import type { PageData } from './$types';
+    import dayjs from 'dayjs';
     export let data: PageData;
 
     let unsubscribe: UnsubscribeFunc;
@@ -19,13 +20,20 @@
     onMount(async () => {
         unsubscribe = await pb
             .collection('answers')
-            .subscribe('*', async (e: { record: AnswersResponse<{ [id: string]: string }, SurveysResponse> }) => {
-                if (e.action == 'create') {
-                    data.answers?.push(e.record);
-                    // eslint-disable-next-line no-self-assign
-                    data.answers = data.answers;
+            .subscribe(
+                '*',
+                async (e: RecordSubscription<AnswersResponse<{ [id: string]: string }, SurveysResponse>>) => {
+                    if (e.action == 'create') {
+                        data.answers?.push(e.record);
+                        // eslint-disable-next-line no-self-assign
+                        data.answers = data.answers;
+
+                        Toast.add('New Response from ' + e.record.name, {
+                            type: 'info',
+                        });
+                    }
                 }
-            });
+            );
     });
 
     onDestroy(() => {
@@ -90,7 +98,7 @@
                     });
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
-                        body: JSON.stringify(data),
+                        body: JSON.stringify(data.room),
                     });
                     Toast.dismiss(working);
                     Toast.add('Saved Changes.', {
@@ -183,13 +191,17 @@
 
         {#each data.answers ?? [] as answer (answer.id)}
             <div class="w-full rounded-lg bg-white p-5 shadow" animate:flip={{ duration: 300 }}>
-                <p class="mb-1 font-bold">{answer.name}</p>
+                <p class="mb-1 font-bold">{answer.name || 'Anonymous'}</p>
                 {#each pairAnswers(answer) as entry}
                     <p>
-                        <b>{(answer.survey?.questions ?? []).find((a) => a.id == entry[0]).label}:</b>
+                        <b>
+                            {(answer.survey?.questions ?? []).find((a) => a.id == entry[0])?.label ??
+                                'Question Missing'}:
+                        </b>
                         {entry[1]}
                     </p>
                 {/each}
+                <p class="mt-2 text-sm italic">Submitted on {dayjs(answer.created).format('DD/MM/YYYY @ HH:mm:ss')}</p>
             </div>
         {/each}
     </div>
