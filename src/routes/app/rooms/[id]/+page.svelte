@@ -2,17 +2,17 @@
     import Button from '$lib/Button.svelte';
     import TextInput from '$lib/TextInput.svelte';
     import { RoomsStateOptions, type AnswersResponse, type SurveysResponse } from '$lib/pocketbase-types';
-    import { flip } from 'svelte/animate';
     import { onDestroy, onMount } from 'svelte';
-    import { pb, type Question } from '$lib/pocketbase';
+    import { pb } from '$lib/pocketbase';
     import type { RecordSubscription, UnsubscribeFunc } from 'pocketbase';
     import SurveyPicker from '$lib/SurveyPicker.svelte';
     import { goto } from '$app/navigation';
     import * as Toast from '$lib/toasts/toast';
     import Confirm from '$lib/Confirm.svelte';
+    import IndividualAnswers from '$lib/IndividualAnswers.svelte';
 
     import type { PageData } from './$types';
-    import dayjs from 'dayjs';
+    import AggregateAnswers from '$lib/AggregateAnswers.svelte';
     export let data: PageData;
 
     let unsubscribe: UnsubscribeFunc;
@@ -40,14 +40,7 @@
         unsubscribe?.();
     });
 
-    function pairAnswers(answer: AnswersResponse<{ [id: string]: string }, SurveysResponse>) {
-        return Object.entries(answer.answers ?? {}).sort((a, b) =>
-            (answer.survey?.questions as Question[]).map((c) => c.id).indexOf(a[0]) >
-            (answer.survey?.questions as Question[]).map((c) => c.id).indexOf(b[0])
-                ? 1
-                : -1
-        );
-    }
+    let tab = 'individual';
 </script>
 
 <div class="flex h-full max-h-full w-full flex-row items-center justify-center gap-3">
@@ -185,25 +178,37 @@
     </div>
 
     <div class="flex h-full max-h-full flex-1 flex-col items-center justify-start gap-3 overflow-y-auto">
-        <div class="w-full rounded-lg bg-white p-5 shadow">
-            <h2 class="text-xl font-bold">Answers ({data.answers?.length})</h2>
+        <div class="flex w-full flex-row items-center justify-between gap-3">
+            <Button
+                variant="secondary"
+                class="w-auto"
+                on:click={() => {
+                    window.open('/ejected/' + data.room.id, 'ejected', 'width=1280,height=720');
+                }}
+            >
+                <img src="/assets/icons/stack-pop.svg" alt="Pop Out Icon" class="h-7 w-7" />
+            </Button>
+            <Button
+                variant={tab == 'individual' ? 'primary' : 'secondary'}
+                class="w-auto flex-1"
+                on:click={() => (tab = 'individual')}
+            >
+                Individual Answers ({data.answers?.length})
+            </Button>
+            <Button
+                variant={tab == 'aggregate' ? 'primary' : 'secondary'}
+                class="w-auto flex-1"
+                on:click={() => (tab = 'aggregate')}
+            >
+                Aggregated Data
+            </Button>
         </div>
 
-        {#each data.answers ?? [] as answer (answer.id)}
-            <div class="w-full rounded-lg bg-white p-5 shadow" animate:flip={{ duration: 300 }}>
-                <p class="mb-1 font-bold">{answer.name || 'Anonymous'}</p>
-                {#each pairAnswers(answer) as entry}
-                    <p>
-                        <b>
-                            {(answer.survey?.questions ?? []).find((a) => a.id == entry[0])?.label ??
-                                'Question Missing'}:
-                        </b>
-                        {entry[1]}
-                    </p>
-                {/each}
-                <p class="mt-2 text-sm italic">Submitted on {dayjs(answer.created).format('DD/MM/YYYY @ HH:mm:ss')}</p>
-            </div>
-        {/each}
+        {#if tab == 'individual'}
+            <IndividualAnswers answers={data.answers ?? []} />
+        {:else if tab == 'aggregate'}
+            <AggregateAnswers answers={data.answers ?? []} />
+        {/if}
     </div>
 </div>
 

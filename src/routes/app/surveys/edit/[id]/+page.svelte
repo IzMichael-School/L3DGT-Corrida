@@ -115,11 +115,15 @@
                 {#if (question.type == 'number' || question.type == 'rating') && question.options?.max != undefined && question.options?.min != undefined}
                     <div class="mt-3 flex w-full flex-row items-center justify-start gap-5 text-sm">
                         <p class="w-[12rem]">Maximum Value</p>
-                        <p class="w-[12rem]">Minimum Value</p>
+                        {#if question.type != 'rating'}
+                            <p class="w-[12rem]">Minimum Value</p>
+                        {/if}
                     </div>
                     <div class="mt-1 flex w-full flex-row items-center justify-start gap-5">
                         <TextInput bind:value={question.options['max']} class="w-[12rem]" type="number" />
-                        <TextInput bind:value={question.options['min']} class="w-[12rem]" type="number" />
+                        {#if question.type != 'rating'}
+                            <TextInput bind:value={question.options['min']} class="w-[12rem]" type="number" />
+                        {/if}
                     </div>
                 {/if}
 
