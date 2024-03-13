@@ -38,9 +38,12 @@
     },
     "type": "module",
     "dependencies": {
+        "chart.js": "^4.4.2",
+        "chartjs-chart-wordcloud": "^4.3.3",
         "dayjs": "^1.11.10",
         "nanoid": "^5.0.5",
         "pocketbase": "^0.21.1",
+        "svelte-chartjs": "^3.1.5",
         "tailwind-merge": "^2.2.1",
         "zxcvbn": "^4.4.2"
     }

@@ -10,6 +10,11 @@
         <h1 class="font-jura text-4xl font-bold text-brand">Voix</h1>
     </div>
 
+    <a class="nav-button" class:active={$page.route.id == '/app'} href="/app">
+        <img src="/assets/icons/layout-dashboard.svg" alt="Dashboard Icon" />
+        <p>Dashboard</p>
+    </a>
+
     <a class="nav-button" class:active={$page.route.id?.startsWith('/app/surveys')} href="/app/surveys">
         <img src="/assets/icons/list-numbers.svg" alt="List with Numbers Icon" />
         <p>Surveys</p>
@@ -20,17 +25,7 @@
         <p>Rooms</p>
     </a>
 
-    <a class="nav-button mt-5" class:active={$page.route.id?.startsWith('/app/answers')} href="/app/answers">
-        <img src="/assets/icons/history-toggle.svg" alt="Clock with partially dashed lines Icon" />
-        <p>Past Answers</p>
-    </a>
-
-    <a class="nav-button" class:active={$page.route.id?.startsWith('/app/profile')} href="/app/profile">
-        <img src="/assets/icons/user.svg" alt="Person with Cog Icon" />
-        <p>Profile</p>
-    </a>
-
-    <a class="nav-button" href="/">
+    <a class="nav-button mt-5" href="/">
         <img src="/assets/icons/door-enter.svg" alt="Door with Arrow Pointing Inwards Icon" />
         <p>Join Room</p>
     </a>
@@ -46,7 +41,7 @@
         }}
         class="contents"
     >
-        <button class="nav-button mt-5">
+        <button class="nav-button">
             <img src="/assets/icons/logout.svg" alt="Leaving through Door Icon" />
             <p>Log Out</p>
         </button>

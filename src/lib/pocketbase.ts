@@ -18,6 +18,32 @@ export function isEmail(str: string) {
     return regex.test(str);
 }
 
+export async function getGravatar(email: string) {
+    const address = String(email).trim().toLowerCase();
+    const hash = await sha256(address);
+    return `https://www.gravatar.com/avatar/${hash}?s=250&d=identicon%r=pg`;
+}
+
+async function sha256(str: string) {
+    const buffer = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buffer);
+    return hex(hash);
+}
+
+function hex(buffer: ArrayBuffer) {
+    let digest = '';
+    const view = new DataView(buffer);
+    for (let i = 0; i < view.byteLength; i += 4) {
+        const value = view.getUint32(i);
+        const stringValue = value.toString(16);
+        const padding = '00000000';
+        const paddedValue = (padding + stringValue).slice(-padding.length);
+        digest += paddedValue;
+    }
+
+    return digest;
+}
+
 export type Question = {
     id: string;
     label: string;

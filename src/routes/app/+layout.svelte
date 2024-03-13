@@ -11,6 +11,7 @@
 
 <div class="flex h-screen max-h-screen w-full flex-row items-center justify-start overflow-hidden bg-stone-100">
     <Sidebar />
+
     <div class="flex h-full max-h-full flex-1 flex-col overflow-auto p-3">
         <slot />
     </div>
