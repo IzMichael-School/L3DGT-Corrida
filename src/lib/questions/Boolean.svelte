@@ -7,7 +7,7 @@
         answer = 'false';
 
     let value = false;
-    $: answer = value.toString();
+    $: answer = question.options?.[value.toString()];
 </script>
 
 <div class="w-full">

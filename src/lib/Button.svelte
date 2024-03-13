@@ -16,7 +16,7 @@
 
 <button
     class={twMerge(
-        'flex w-full flex-row items-center justify-center rounded-lg border p-2 text-lg font-bold shadow transition-colors duration-300 ease-in-out active:shadow-none',
+        'flex min-h-11 w-full flex-row items-center justify-center rounded-lg border p-2 text-lg font-bold shadow transition-colors duration-300 ease-in-out active:shadow-none',
         variants[variant],
         xclass
     )}
