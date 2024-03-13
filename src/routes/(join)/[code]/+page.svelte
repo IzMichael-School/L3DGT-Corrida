@@ -1,7 +1,7 @@
 <script lang="ts">
     import Button from '$lib/Button.svelte';
     import TextInput from '$lib/TextInput.svelte';
-    import { pb } from '$lib/pocketbase';
+    import { getGravatar, pb } from '$lib/pocketbase';
     import { onDestroy, onMount } from 'svelte';
     import dayjs from 'dayjs';
 
@@ -108,14 +108,16 @@
             </div>
             <div class="flex flex-1 flex-col items-center justify-center px-5 py-2 lg:w-2/3 lg:px-0">
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>
-                <h2 class="mt-1 text-xl font-bold">
-                    hosted by <img
-                        src={pb.files.getUrl(data.expand?.owner, data.expand?.owner.avatar)}
-                        class="mb-1 ml-2 inline-block h-7 w-7 rounded-full"
-                        alt="{data.expand?.owner.displayname}'s Profile Picture"
-                    />
-                    {data.expand?.owner.displayname}
-                </h2>
+                {#await getGravatar(data.expand?.owner.email ?? '') then gravatar}
+                    <h2 class="mt-1 text-xl font-bold">
+                        hosted by <img
+                            src={gravatar}
+                            class="mb-1 ml-2 inline-block h-7 w-7 rounded-full"
+                            alt="{data.expand?.owner.displayname}'s Profile Picture"
+                        />
+                        {data.expand?.owner.displayname}
+                    </h2>
+                {/await}
 
                 <hr class="my-8 w-full border-t-2" />
 
@@ -131,14 +133,16 @@
         <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-auto shadow-lg">
             <div class="flex flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>
-                <h2 class="-mt-4 text-xl font-bold">
-                    hosted by <img
-                        src={pb.files.getUrl(data.expand?.owner, data.expand?.owner.avatar)}
-                        class="w-7ml-2 mb-1 inline-block h-7 rounded-full"
-                        alt="{data.expand?.owner.displayname}'s Profile Picture"
-                    />
-                    {data.expand?.owner.displayname}
-                </h2>
+                {#await getGravatar(data.expand?.owner.email ?? '') then gravatar}
+                    <h2 class="-mt-4 text-xl font-bold">
+                        hosted by <img
+                            src={gravatar}
+                            class="w-7ml-2 mb-1 inline-block h-7 rounded-full"
+                            alt="{data.expand?.owner.displayname}'s Profile Picture"
+                        />
+                        {data.expand?.owner.displayname}
+                    </h2>
+                {/await}
 
                 <hr class="my-8 w-full border-t-2" />
 

@@ -20,6 +20,8 @@ export const actions: Actions = {
 
         if (data.password.includes(' ')) return fail(400, { error: 'Password cannot contain spaces.' });
 
+        data.email = data.email.toLowerCase();
+
         try {
             await locals.pb.collection('users').create({
                 ...data,
