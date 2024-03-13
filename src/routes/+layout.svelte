@@ -2,7 +2,10 @@
     import '../app.css';
     import '../fonts.css';
 
+    import { navigating } from '$app/stores';
+
     import Toasts from '$lib/toasts/Toasts.svelte';
+    import Spinner from '$lib/Spinner.svelte';
 </script>
 
 <svelte:head>
@@ -29,6 +32,10 @@
 
 <Toasts />
 <slot />
+
+{#if $navigating}
+    <Spinner />
+{/if}
 
 <style>
 </style>
