@@ -1,6 +1,6 @@
 <script lang="ts">
     import TextInput from '$lib/TextInput.svelte';
-    import { getGravatar, pb } from '$lib/pocketbase';
+    import { getGravatarUrl, pb } from '$lib/pocketbase';
     import Button from '$lib/Button.svelte';
     import * as Toast from '$lib/toasts/toast';
     import { goto } from '$app/navigation';
@@ -97,9 +97,11 @@
 
     <div class="flex h-full flex-1 flex-col items-center justify-start overflow-auto rounded-lg bg-white p-5 shadow">
         <div class="flex w-full flex-1 flex-col items-center justify-center">
-            {#await getGravatar(data.live.email ?? '') then gravatar}
-                <img src={gravatar} alt="{data.live.displayname}'s Profile Picture" class="w-1/3 rounded-full shadow" />
-            {/await}
+            <img
+                src={getGravatarUrl(data.live.gravatarhash ?? '')}
+                alt="{data.live.displayname}'s Profile Picture"
+                class="w-1/3 rounded-full shadow"
+            />
             <h1 class="mt-5 text-3xl font-bold">{data.live.displayname}</h1>
             <h2 class="mt-1 text-xl font-bold">@{data.live.username}</h2>
 

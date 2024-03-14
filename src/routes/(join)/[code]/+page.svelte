@@ -1,7 +1,7 @@
 <script lang="ts">
     import Button from '$lib/Button.svelte';
     import TextInput from '$lib/TextInput.svelte';
-    import { getGravatar, pb } from '$lib/pocketbase';
+    import { getGravatarUrl, pb } from '$lib/pocketbase';
     import { onDestroy, onMount } from 'svelte';
     import dayjs from 'dayjs';
 
@@ -96,7 +96,7 @@
         <section class="relative flex h-full flex-1 flex-col items-center justify-center shadow-lg">
             <a href="/" class="absolute left-0 top-0 w-full p-2 text-left hover:underline">&leftarrow; Return Home</a>
 
-            <div class="max-h-[25vh] w-full lg:hidden">
+            <div class="relative h-[25vh] w-full lg:hidden">
                 <img
                     src={pb.files.getUrl(data, data.banner) || '/assets/img/microphone-unsplash.jpg'}
                     alt="{data.title}'s Banner Image"
@@ -108,16 +108,14 @@
             </div>
             <div class="flex flex-1 flex-col items-center justify-center px-5 py-2 lg:w-2/3 lg:px-0">
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>
-                {#await getGravatar(data.expand?.owner.email ?? '') then gravatar}
-                    <h2 class="mt-1 text-xl font-bold">
-                        hosted by <img
-                            src={gravatar}
-                            class="mb-1 ml-2 inline-block h-7 w-7 rounded-full"
-                            alt="{data.expand?.owner.displayname}'s Profile Picture"
-                        />
-                        {data.expand?.owner.displayname}
-                    </h2>
-                {/await}
+                <h2 class="mt-1 text-center text-xl font-bold">
+                    hosted by <img
+                        src={getGravatarUrl(data.expand?.owner.gravatarhash ?? '')}
+                        class="mb-1 ml-2 inline-block h-7 w-7 rounded-full"
+                        alt="{data.expand?.owner.displayname}'s Profile Picture"
+                    />
+                    {data.expand?.owner.displayname}
+                </h2>
 
                 <hr class="my-8 w-full border-t-2" />
 
@@ -126,23 +124,21 @@
                 </p>
                 <TextInput bind:value={nickname} class="w-full" placeholder="What do we call you?" />
 
-                <h2 class="mt-10 text-xl font-bold">Sit Tight! We'll be starting soon.</h2>
+                <h2 class="mt-10 text-center text-xl font-bold">Sit Tight! We'll be starting soon.</h2>
             </div>
         </section>
     {:else if data.state == 'active' && !submitted}
         <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-auto shadow-lg">
             <div class="flex flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>
-                {#await getGravatar(data.expand?.owner.email ?? '') then gravatar}
-                    <h2 class="-mt-4 text-xl font-bold">
-                        hosted by <img
-                            src={gravatar}
-                            class="w-7ml-2 mb-1 inline-block h-7 rounded-full"
-                            alt="{data.expand?.owner.displayname}'s Profile Picture"
-                        />
-                        {data.expand?.owner.displayname}
-                    </h2>
-                {/await}
+                <h2 class="-mt-4 text-xl font-bold">
+                    hosted by <img
+                        src={getGravatarUrl(data.expand?.owner.gravatarhash ?? '')}
+                        class="w-7ml-2 mb-1 inline-block h-7 rounded-full"
+                        alt="{data.expand?.owner.displayname}'s Profile Picture"
+                    />
+                    {data.expand?.owner.displayname}
+                </h2>
 
                 <hr class="my-8 w-full border-t-2" />
 

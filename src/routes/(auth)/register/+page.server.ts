@@ -1,4 +1,4 @@
-import { isEmail } from '$lib/pocketbase';
+import { getGravatarHash, isEmail } from '$lib/pocketbase';
 import { redirect, fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -20,11 +20,12 @@ export const actions: Actions = {
 
         if (data.password.includes(' ')) return fail(400, { error: 'Password cannot contain spaces.' });
 
-        data.email = data.email.toLowerCase();
+        const gravatarhash = await getGravatarHash(data.email);
 
         try {
             await locals.pb.collection('users').create({
                 ...data,
+                gravatarhash,
             });
             await locals.pb.collection('users').requestVerification(data.email);
             await locals.pb.collection('users').authWithPassword(data.email, data.password);

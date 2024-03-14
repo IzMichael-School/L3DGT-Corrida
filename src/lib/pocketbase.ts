@@ -18,10 +18,14 @@ export function isEmail(str: string) {
     return regex.test(str);
 }
 
-export async function getGravatar(email: string) {
+export async function getGravatarHash(email: string) {
     const address = String(email).trim().toLowerCase();
     const hash = await sha256(address);
-    return `https://www.gravatar.com/avatar/${hash}?s=250&d=identicon&r=pg`;
+    return hash;
+}
+
+export function getGravatarUrl(hash: string) {
+    return `https://www.gravatar.com/avatar/${hash}?s=250&d=retro&r=pg`;
 }
 
 async function sha256(str: string) {
