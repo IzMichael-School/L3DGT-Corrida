@@ -16,7 +16,8 @@
                 out:fly={{ duration: 600, opacity: 1, x: 500, easing: cubicInOut }}
             >
                 <Toast type={toast.type} dismissible={toast.dismissible} on:dismiss={() => dismiss(toast.id ?? '')}>
-                    {toast.message}
+                    <svelte:fragment slot="message">{toast.message}</svelte:fragment>
+                    <svelte:fragment slot="body">{toast.body ?? ''}</svelte:fragment>
                 </Toast>
             </div>
         {/each}

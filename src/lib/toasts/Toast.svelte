@@ -8,10 +8,17 @@
     export let dismissible = true;
 </script>
 
-<div class="flex w-full flex-row items-center justify-start rounded-lg p-2 shadow-lg {type}" role="alert">
-    <p class="mb-[1px] mr-2 flex-1 font-bold text-white"><slot /></p>
+<div class="relative flex w-full flex-col items-center justify-start rounded-lg p-2 shadow-lg {type}" role="alert">
+    <p class="min-h-6 w-full pb-[1px] pr-8 text-left font-bold text-white">
+        <slot name="message" />
+    </p>
+
+    <p class="min-h-0 w-full text-left text-white">
+        <slot name="body" />
+    </p>
+
     {#if dismissible}
-        <button on:click={() => dispatch('dismiss')}>
+        <button on:click={() => dispatch('dismiss')} class="absolute right-0 top-0 m-2">
             <img src="/assets/icons/x.svg" class="h-6 w-6 invert" alt="Close Icon" />
         </button>
     {/if}
