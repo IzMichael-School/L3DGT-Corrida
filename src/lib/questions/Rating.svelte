@@ -18,7 +18,7 @@
 
     <div class="mt-1 flex flex-row items-center justify-start">
         <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-        {#each Array((parseInt(question.options?.max) ?? 0) - (parseInt(question.options?.min) ?? 0)) as _i, i}
+        {#each Array(parseInt(question.options?.max) ?? 0) as _i, i}
             <label class="aspect-square">
                 <Star filled={group >= i} />
 

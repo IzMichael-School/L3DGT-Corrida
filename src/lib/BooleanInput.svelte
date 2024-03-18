@@ -9,12 +9,13 @@
 
     let variants = {
         switch: {
-            wrapper: 'w-12 h-6',
+            wrapper:
+                'w-[calc(3rem+1px)] h-[calc(1.5rem+1px)] border hover:border-gray-900 border-gray-400 bg-white hover:bg-gray-100',
             inner: 'w-4 h-4',
             innerTrue: 'ml-7 bg-green-600',
         },
         slider: {
-            wrapper: 'w-[17.5rem] h-9',
+            wrapper: 'w-[17.5rem] h-9 bg-gray-100',
             inner: 'w-[8.375rem] h-7 bg-blue-300',
             innerTrue: 'ml-[8.875rem] bg-blue-300',
         },
@@ -29,7 +30,7 @@
 
 <label
     class={twMerge(
-        'relative mt-1 flex cursor-pointer flex-row items-center gap-1 overflow-hidden bg-gray-100 p-1',
+        'relative mt-1 flex cursor-pointer flex-row items-center gap-1 overflow-hidden p-1 transition-colors duration-200 ease-in-out',
         variants[variant].wrapper,
         xclass
     )}

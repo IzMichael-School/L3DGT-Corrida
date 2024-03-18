@@ -13,8 +13,8 @@
     export let data: PageData, form;
 </script>
 
-<div class="flex h-full max-h-full w-full flex-row items-center justify-center gap-3">
-    <div class="flex h-full flex-1 flex-col items-center justify-start gap-5">
+<div class="flex h-full max-h-full w-full flex-col items-center justify-start gap-3 lg:flex-row lg:justify-center">
+    <div class="flex w-full flex-col items-center justify-start gap-5 lg:h-full lg:w-auto lg:flex-1">
         <div class="flex w-full flex-col items-center justify-center rounded-lg bg-white p-5 shadow">
             <h1 class="text-center text-6xl font-bold">Welcome to Voix</h1>
         </div>
@@ -67,35 +67,41 @@
         </div>
 
         <div class="flex w-full flex-col items-center justify-center gap-3 rounded-lg bg-white p-5 shadow">
-            <a href="/rooms/{data.recents.room.id}" class="contents">
-                <Button variant="primary" class="justify-start bg-brand-green shadow">
-                    <img
-                        src="/assets/icons/users-group.svg"
-                        alt="Group of People Icon"
-                        class="aspect-square w-10 invert"
-                    />
-                    <p class="ml-5 flex-1 text-left text-xl font-bold text-white">
-                        Resume Last Room ({data.recents.room.title})
-                    </p>
-                </Button>
-            </a>
+            {#await data.recents.room then room}
+                <a href="/app/rooms/{room.id}" class="contents">
+                    <Button variant="primary" class="justify-start bg-brand-green shadow">
+                        <img
+                            src="/assets/icons/users-group.svg"
+                            alt="Group of People Icon"
+                            class="aspect-square w-10 invert"
+                        />
+                        <p class="ml-5 flex-1 text-left text-xl font-bold text-white">
+                            Resume Last Room ({room.title})
+                        </p>
+                    </Button>
+                </a>
+            {/await}
 
-            <a href="/surveys/edit/{data.recents.survey.title}" class="contents">
-                <Button variant="primary" class="justify-start bg-brand-blue shadow">
-                    <img
-                        src="/assets/icons/list-numbers.svg"
-                        alt="List with Numbers Icon"
-                        class="aspect-square w-10 invert"
-                    />
-                    <p class="ml-5 flex-1 text-left text-xl font-bold text-white">
-                        Edit Last Survey ({data.recents.survey.title})
-                    </p>
-                </Button>
-            </a>
+            {#await data.recents.survey then survey}
+                <a href="/app/surveys/edit/{survey.id}" class="contents">
+                    <Button variant="primary" class="justify-start bg-brand-blue shadow">
+                        <img
+                            src="/assets/icons/list-numbers.svg"
+                            alt="List with Numbers Icon"
+                            class="aspect-square w-10 invert"
+                        />
+                        <p class="ml-5 flex-1 text-left text-xl font-bold text-white">
+                            Edit Last Survey ({survey.title})
+                        </p>
+                    </Button>
+                </a>
+            {/await}
         </div>
     </div>
 
-    <div class="flex h-full flex-1 flex-col items-center justify-start overflow-auto rounded-lg bg-white p-5 shadow">
+    <div
+        class="flex w-full flex-col items-center justify-start rounded-lg bg-white p-5 shadow lg:h-full lg:w-auto lg:flex-1 lg:overflow-auto"
+    >
         <div class="flex w-full flex-1 flex-col items-center justify-center">
             <img
                 src={getGravatarUrl(data.live.gravatarhash ?? '')}

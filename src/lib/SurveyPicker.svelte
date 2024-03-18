@@ -16,10 +16,10 @@
 {#if modalShown}
     <Modal on:clickOut={() => (modalShown = false)}>
         <div
-            class="flex h-full max-h-full w-full flex-col-reverse items-center justify-between overflow-auto lg:h-[60vh] lg:w-[48rem] lg:flex-row lg:overflow-hidden"
+            class="flex h-full max-h-full w-full flex-col items-center justify-between overflow-auto lg:h-[60vh] lg:w-[48rem] lg:flex-row lg:overflow-hidden"
         >
             <div
-                class="max-h-full w-full flex-1 overflow-hidden border-t border-gray-300 p-3 shadow-lg lg:h-full lg:w-1/2 lg:flex-none lg:overflow-auto lg:border-r"
+                class="max-h-full w-full border-t border-gray-300 p-3 shadow-lg lg:h-full lg:w-1/2 lg:flex-none lg:overflow-auto lg:border-r"
             >
                 <TextInput bind:value={filter} class="mb-2 w-full" placeholder="Search for a Survey..." />
                 {#each surveys.filter((a) => a.title.toLowerCase().includes(filter.toLowerCase()) || (a.questions ?? [])
@@ -42,7 +42,7 @@
                 {/each}
             </div>
             <div
-                class="flex max-h-full w-full flex-1 flex-col items-center justify-center overflow-hidden border-b border-gray-300 p-3 shadow-inner lg:h-full lg:w-1/2 lg:flex-none lg:overflow-auto lg:border-l"
+                class="flex max-h-full w-full flex-col items-center justify-start border-b border-gray-300 p-3 shadow-inner lg:h-full lg:w-1/2 lg:flex-none lg:overflow-auto lg:border-l"
             >
                 {#if selected}
                     <h3 class="w-full text-left text-lg font-bold">{selected.title}</h3>

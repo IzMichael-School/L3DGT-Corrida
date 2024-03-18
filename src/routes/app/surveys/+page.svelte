@@ -26,7 +26,7 @@
     <h1 class="text-xl font-bold">My Surveys</h1>
 </div>
 
-<div class="grid grid-cols-6 gap-5 rounded-lg bg-white p-5 shadow">
+<div class="grid grid-cols-2 gap-5 rounded-lg bg-white p-5 shadow lg:grid-cols-6">
     <button
         class="flex aspect-[3/4] flex-col items-center justify-center gap-2 rounded-lg border-2 border-zinc-100 bg-zinc-100 p-2 shadow hover:border-zinc-200 hover:bg-brand/20"
         on:click={async () => {

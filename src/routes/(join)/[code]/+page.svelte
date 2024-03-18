@@ -197,7 +197,7 @@
     {:else if data.state != 'closed' && submitted}
         <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-auto shadow-lg">
             <div class="flex flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
-                <h1 class="text-3xl font-bold">Thanks for Participating!</h1>
+                <h1 class="text-center text-3xl font-bold">Thanks for Participating!</h1>
 
                 <!-- <h2 class="mt-1 text-xl font-bold"></h2> -->
 
@@ -229,8 +229,8 @@
     {:else if data.state == 'closed'}
         <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-auto shadow-lg">
             <div class="flex flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
-                <h1 class="text-3xl font-bold">This room has now closed.</h1>
-                <h2 class="mt-1 text-xl font-bold">Thanks for Participating!</h2>
+                <h1 class="text-center text-3xl font-bold">This room has now closed.</h1>
+                <h2 class="mt-1 text-center text-xl font-bold">Thanks for Participating!</h2>
 
                 {#if submitted}
                     <Button

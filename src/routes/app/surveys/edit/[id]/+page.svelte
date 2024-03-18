@@ -20,14 +20,16 @@
     }
 </script>
 
-<div class="flex h-full max-h-full w-full flex-row items-center justify-center gap-3">
-    <div class="flex h-full w-1/3 flex-col items-center justify-start rounded-lg bg-white p-5 shadow">
+<div
+    class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:max-h-full lg:flex-row lg:justify-center"
+>
+    <div class="flex w-full flex-col items-center justify-start rounded-lg bg-white p-5 shadow lg:h-full lg:w-1/3">
         <h1 class="text-2xl font-bold">Survey Editor</h1>
 
         <p class="mt-5 w-full text-left text-sm">Survey Title</p>
         <TextInput bind:value={data.title} class="mb-0 w-full" />
 
-        <span class="flex-1" />
+        <span class="min-h-5 flex-1" />
 
         <Confirm
             action={async () => {
@@ -69,7 +71,9 @@
         </Button>
     </div>
 
-    <div class="flex h-full max-h-full flex-1 flex-col items-center justify-start gap-3 overflow-y-auto">
+    <div
+        class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:max-h-full lg:w-auto lg:flex-1 lg:overflow-y-auto"
+    >
         <div class="w-full rounded-lg bg-white p-5 shadow">
             <h2 class="text-xl font-bold">Questions ({data.questions?.length})</h2>
         </div>
@@ -81,71 +85,70 @@
             >
                 <p class="font-bold">Question {i + 1}.</p>
 
-                <div class="mt-3 flex w-full flex-row items-center justify-between gap-5 text-sm">
-                    <p class="flex-1">Question Label</p>
-                    <p class="min-w-[12rem]">Question Type</p>
+                <div class="mt-3 flex w-full flex-col items-center justify-between gap-5 lg:flex-row">
+                    <div class="flex w-full flex-col items-center justify-start gap-1 lg:w-auto lg:flex-1">
+                        <p class="w-full text-sm">Question Label</p>
+                        <TextInput bind:value={question.label} class="my-0 w-full" placeholder="Ask any question..." />
+                    </div>
+                    <div class="flex w-full flex-col items-center justify-start gap-1 lg:w-auto lg:flex-1">
+                        <p class="w-full text-sm">Question Type</p>
+                        <select
+                            bind:value={question.type}
+                            class="my-0 w-full rounded-lg border border-gray-400 bg-white p-[calc(0.625rem+1px)] font-normal text-black outline-none hover:bg-gray-200"
+                            on:change={() => {
+                                if (question.type == 'boolean') {
+                                    question.options.true = '';
+                                    question.options.false = '';
+                                }
+                                if (question.type == 'number' || question.type == 'rating') {
+                                    question.options.max = '100';
+                                    question.options.min = question.type == 'rating' ? '1' : '0';
+                                }
+                            }}
+                        >
+                            <option value="short-text">Short Text</option>
+                            <option value="long-text">Long Text</option>
+                            <option value="number">Number</option>
+                            <option value="boolean">True / False</option>
+                            <option value="rating">Rating</option>
+                            <option value="radio">Radio Buttons</option>
+                            <option value="checkboxes">Checkboxes</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="mt-1 flex w-full flex-row items-center justify-between gap-5">
-                    <TextInput bind:value={question.label} class="my-0 flex-1" placeholder="Ask any question..." />
 
-                    <select
-                        bind:value={question.type}
-                        class="min-w-[12rem] rounded-lg border border-gray-300 bg-gray-100 p-2.5 font-normal text-black outline-none hover:bg-gray-200"
-                        on:change={() => {
-                            if (question.type == 'boolean') {
-                                question.options.true = '';
-                                question.options.false = '';
-                            }
-                            if (question.type == 'number' || question.type == 'rating') {
-                                question.options.max = '100';
-                                question.options.min = question.type == 'rating' ? '1' : '0';
-                            }
-                        }}
-                    >
-                        <option value="short-text">Short Text</option>
-                        <option value="long-text">Long Text</option>
-                        <option value="number">Number</option>
-                        <option value="boolean">True / False</option>
-                        <option value="rating">Rating</option>
-                        <option value="radio">Radio Buttons</option>
-                        <option value="checkboxes">Checkboxes</option>
-                    </select>
-                </div>
-
-                {#if (question.type == 'number' || question.type == 'rating') && question.options?.max != undefined && question.options?.min != undefined}
-                    <div class="mt-3 flex w-full flex-row items-center justify-start gap-5 text-sm">
-                        <p class="w-[12rem]">Maximum Value</p>
+                <div class="mt-3 grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+                    {#if (question.type == 'number' || question.type == 'rating') && question.options?.max != undefined && question.options?.min != undefined}
+                        <div class="flex w-full flex-col items-center justify-start gap-1">
+                            <p class="w-full text-sm">Maximum Value</p>
+                            <TextInput bind:value={question.options['max']} class="w-full" type="number" />
+                        </div>
                         {#if question.type != 'rating'}
-                            <p class="w-[12rem]">Minimum Value</p>
+                            <div class="flex w-full flex-col items-center justify-start gap-1">
+                                <p class="w-full text-sm">Minimum Value</p>
+                                <TextInput bind:value={question.options['min']} class="w-full" type="number" />
+                            </div>
                         {/if}
-                    </div>
-                    <div class="mt-1 flex w-full flex-row items-center justify-start gap-5">
-                        <TextInput bind:value={question.options['max']} class="w-[12rem]" type="number" />
-                        {#if question.type != 'rating'}
-                            <TextInput bind:value={question.options['min']} class="w-[12rem]" type="number" />
-                        {/if}
-                    </div>
-                {/if}
+                    {/if}
 
-                {#if question.type == 'boolean' && question.options?.true != undefined && question.options?.false != undefined}
-                    <div class="mt-3 flex w-full flex-row items-center justify-start gap-5 text-sm">
-                        <p class="w-[12rem]">True Label</p>
-                        <p class="w-[12rem]">False Label</p>
-                    </div>
-                    <div class="mt-1 flex w-full flex-row items-center justify-start gap-5">
-                        <TextInput bind:value={question.options['true']} class="w-[12rem]" />
-                        <TextInput bind:value={question.options['false']} class="w-[12rem]" />
-                    </div>
-                {/if}
+                    {#if question.type == 'boolean' && question.options?.true != undefined && question.options?.false != undefined}
+                        <div class="flex w-full flex-col items-center justify-start gap-1">
+                            <p class="w-full text-sm">True Label</p>
+                            <TextInput bind:value={question.options['true']} class="w-full" />
+                        </div>
+                        <div class="flex w-full flex-col items-center justify-start gap-1">
+                            <p class="w-full text-sm">False Label</p>
+                            <TextInput bind:value={question.options['false']} class="w-full" />
+                        </div>
+                    {/if}
 
-                {#if (question.type == 'radio' || question.type == 'checkboxes') && question.options != undefined}
-                    <div class="mt-3 grid w-full grid-cols-3 gap-3">
+                    {#if (question.type == 'radio' || question.type == 'checkboxes') && question.options != undefined}
                         {#each Object.keys(question.options) as entry (entry)}
                             <div
-                                class="flex flex-col items-center justify-center gap-1"
+                                class="flex w-full flex-col items-center justify-start gap-1"
                                 animate:flip={{ duration: 300 }}
                             >
-                                <p class="w-full">Option Label</p>
+                                <p class="w-full text-sm">Option Label</p>
                                 <div class="flex w-full flex-row items-center justify-between gap-1">
                                     <TextInput bind:value={question.options[entry]} class="mb-0 flex-1" />
                                     <Button
@@ -174,8 +177,8 @@
                                 Add Option
                             </Button>
                         </div>
-                    </div>
-                {/if}
+                    {/if}
+                </div>
 
                 <div class="mt-5 flex w-full flex-row items-center justify-end gap-3">
                     <p class="w-fit">Required Question</p>
@@ -186,7 +189,7 @@
                         bind:value={question.required}
                     />
 
-                    <span class="block flex-1" />
+                    <span class="block min-h-5 flex-1" />
 
                     {#if i != 0}
                         <Button

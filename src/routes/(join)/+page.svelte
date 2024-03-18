@@ -14,9 +14,11 @@
     <title>Voix</title>
 </svelte:head>
 
-<div class="flex h-screen max-h-screen w-screen flex-row items-center justify-between overflow-hidden">
+<div
+    class="flex h-screen max-h-screen w-screen flex-col-reverse items-center justify-between overflow-hidden lg:flex-row"
+>
     <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-y-auto shadow-lg">
-        <div class="flex w-full flex-1 flex-col items-center justify-center px-5 py-2 lg:w-2/3 lg:px-0">
+        <div class="flex w-full flex-1 flex-col items-center justify-center px-5 py-10 lg:w-2/3 lg:px-0">
             <h1 class="text-center text-6xl font-bold">Welcome to Voix</h1>
 
             <p class="mt-16 w-full text-center font-bold text-gray-700">Join a Room</p>
@@ -66,7 +68,7 @@
         <Copyright />
     </section>
 
-    <section class="relative hidden h-full flex-1 items-center justify-center lg:flex">
+    <section class="relative flex h-[25vh] w-full items-center justify-center lg:h-full lg:w-auto lg:flex-1">
         <img
             src="/assets/img/microphone-unsplash.jpg"
             alt="Microphone on a Purple Background"

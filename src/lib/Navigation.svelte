@@ -4,28 +4,30 @@
     import { page } from '$app/stores';
 </script>
 
-<div class="flex h-full w-64 flex-col border-r-2 border-r-gray-200 bg-white p-5">
-    <div class="mb-5 flex w-full flex-row items-center justify-center">
+<div
+    class="flex h-20 w-full flex-row justify-between gap-3 rounded-t-xl border-t-2 border-r-gray-200 bg-white p-3 shadow-lg lg:mt-0 lg:h-full lg:w-64 lg:flex-col lg:justify-start lg:gap-0 lg:rounded-none lg:border-r-2 lg:border-t-0 lg:p-5"
+>
+    <div class="mb-5 hidden w-full flex-row items-center justify-center lg:flex">
         <img src="/assets/icons/checkbox.svg" alt="Checkbox Icon" class="mr-3 mt-1 h-8 w-8" />
         <h1 class="font-jura text-4xl font-bold text-brand">Voix</h1>
     </div>
 
-    <a class="nav-button" class:active={$page.route.id == '/app'} href="/app">
+    <a class="nav-button lg:[nav-button]" class:active={$page.route.id == '/app'} href="/app">
         <img src="/assets/icons/layout-dashboard.svg" alt="Dashboard Icon" />
         <p>Dashboard</p>
     </a>
 
-    <a class="nav-button" class:active={$page.route.id?.startsWith('/app/surveys')} href="/app/surveys">
+    <a class="nav-button lg:[nav-button]" class:active={$page.route.id?.startsWith('/app/surveys')} href="/app/surveys">
         <img src="/assets/icons/list-numbers.svg" alt="List with Numbers Icon" />
         <p>Surveys</p>
     </a>
 
-    <a class="nav-button" class:active={$page.route.id?.startsWith('/app/rooms')} href="/app/rooms">
+    <a class="nav-button lg:[nav-button]" class:active={$page.route.id?.startsWith('/app/rooms')} href="/app/rooms">
         <img src="/assets/icons/users-group.svg" alt="Group of People Icon" />
         <p>Rooms</p>
     </a>
 
-    <a class="nav-button mt-5" href="/">
+    <a class="nav-button lg:[nav-button] lg:mt-5" href="/">
         <img src="/assets/icons/door-enter.svg" alt="Door with Arrow Pointing Inwards Icon" />
         <p>Join Room</p>
     </a>
@@ -50,7 +52,8 @@
 
 <style>
     .nav-button {
-        @apply mb-2 flex flex-row items-center justify-start rounded-lg border p-2 font-bold shadow;
+        /* eslint-disable-next-line svelte/valid-compile */
+        @apply flex flex-1 flex-col items-center justify-start whitespace-nowrap rounded-lg border p-2 text-center text-xs font-bold shadow lg:mb-2 lg:flex-none lg:flex-row lg:text-left lg:text-base;
     }
     .nav-button:hover {
         @apply bg-zinc-100;
@@ -59,6 +62,7 @@
         @apply bg-brand/20;
     }
     .nav-button img {
-        @apply mr-2 h-5 w-5;
+        /* eslint-disable-next-line svelte/valid-compile */
+        @apply h-5 w-5 lg:mr-2;
     }
 </style>

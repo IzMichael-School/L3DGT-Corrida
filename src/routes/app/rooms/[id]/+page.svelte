@@ -43,8 +43,10 @@
     let tab = 'individual';
 </script>
 
-<div class="flex h-full max-h-full w-full flex-row items-center justify-center gap-3">
-    <div class="flex h-full w-1/3 flex-col items-center justify-start gap-3">
+<div
+    class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:max-h-full lg:flex-row lg:justify-center"
+>
+    <div class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:w-1/3">
         <div class="flex w-full flex-1 flex-col items-center justify-start rounded-lg bg-white p-5 shadow">
             <h1 class="text-2xl font-bold">Room Editor</h1>
 
@@ -61,7 +63,7 @@
             <p class="mb-1 mt-5 w-full text-left text-sm">Selected Survey</p>
             <SurveyPicker bind:value={data.room.survey} surveys={data.surveys ?? []} />
 
-            <span class="flex-1" />
+            <span class="min-h-5 flex-1" />
 
             <Confirm
                 action={async () => {
@@ -177,7 +179,9 @@
         </div>
     </div>
 
-    <div class="flex h-full max-h-full flex-1 flex-col items-center justify-start gap-3 overflow-y-auto">
+    <div
+        class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:max-h-full lg:w-auto lg:flex-1 lg:overflow-y-auto"
+    >
         <div class="flex w-full flex-row items-center justify-between gap-3">
             <Button
                 variant="secondary"
@@ -193,14 +197,16 @@
                 class="w-auto flex-1"
                 on:click={() => (tab = 'individual')}
             >
-                Individual Answers ({data.answers?.length})
+                Individual
+                <span class="hidden lg:inline">Answers ({data.answers?.length})</span>
             </Button>
             <Button
                 variant={tab == 'aggregate' ? 'primary' : 'secondary'}
                 class="w-auto flex-1"
                 on:click={() => (tab = 'aggregate')}
             >
-                Aggregated Data
+                Aggregate
+                <span class="hidden lg:inline">d Data</span>
             </Button>
         </div>
 

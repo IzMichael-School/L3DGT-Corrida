@@ -2,15 +2,15 @@ import type { RoomsResponse, SurveysResponse, UsersResponse } from '$lib/pocketb
 import type { PageServerLoad, Actions } from './$types';
 import { fail, error } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = ({ locals }) => {
     return {
         user: structuredClone(locals.user) ?? {},
         live: locals.user ?? {},
         recents: {
-            room: await locals.pb.collection('rooms').getFirstListItem(`owner.id = "${locals.user?.id}"`, {
+            room: locals.pb.collection('rooms').getFirstListItem(`owner.id = "${locals.user?.id}"`, {
                 sort: '-updated',
             }),
-            survey: await locals.pb.collection('surveys').getFirstListItem(`owner.id = "${locals.user?.id}"`, {
+            survey: locals.pb.collection('surveys').getFirstListItem(`owner.id = "${locals.user?.id}"`, {
                 sort: '-updated',
             }),
         },
@@ -18,8 +18,8 @@ export const load: PageServerLoad = async ({ locals }) => {
         user: UsersResponse;
         live: UsersResponse;
         recents: {
-            room: RoomsResponse;
-            survey: SurveysResponse;
+            room: Promise<RoomsResponse>;
+            survey: Promise<SurveysResponse>;
         };
     };
 };

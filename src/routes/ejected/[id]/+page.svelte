@@ -54,8 +54,8 @@
 </svelte:head>
 
 <div class="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-slate-100">
-    <div class="flex h-16 w-full shrink-0 flex-row items-center justify-start bg-stone-100 p-2">
-        <div class="flex flex-1 flex-row items-center justify-start">
+    <div class="flex h-16 w-full shrink-0 flex-row items-center justify-start gap-10 bg-stone-100 p-2">
+        <div class="flex min-w-fit flex-row items-center justify-start">
             <Button variant="secondary" class="mr-5 w-auto" on:click={() => toggleFullScreen()}>
                 <img src="/assets/icons/arrows-maximize.svg" alt="Maximise Icon" class="h-7 w-7" />
             </Button>
@@ -81,7 +81,7 @@
                 class="w-auto flex-1"
                 on:click={() => (tab = 'individual')}
             >
-                Individual Answers ({data.answers?.length})
+                Individual Answers
             </Button>
 
             <Button
@@ -107,11 +107,11 @@
             </h2>
         </div>
     {:else if tab == 'individual'}
-        <div class="flex max-h-full flex-col items-center justify-start gap-5 overflow-auto p-5">
+        <div class="grid max-h-full w-full grid-cols-2 gap-5 overflow-auto p-5">
             <IndividualAnswers answers={data.answers ?? []} />
         </div>
     {:else if tab == 'aggregate'}
-        <div class="flex max-h-full flex-col items-center justify-start gap-5 overflow-auto p-5">
+        <div class="flex max-h-full w-full flex-col items-center justify-start gap-5 overflow-auto p-5">
             <AggregateAnswers answers={data.answers ?? []} />
         </div>
     {/if}
