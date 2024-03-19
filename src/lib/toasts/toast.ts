@@ -23,7 +23,7 @@ export const add = (message: string, options: Partial<Toast> = {}) => {
 
     toasts.update((all) => [{ ...defaults, ...options } as Toast, ...all]);
 
-    // setTimeout(() => dismiss(id), options.timeout || defaults.timeout);
+    setTimeout(() => dismiss(id), options.timeout || defaults.timeout);
 
     return id;
 };
