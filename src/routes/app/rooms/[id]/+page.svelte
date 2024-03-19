@@ -3,7 +3,7 @@
     import TextInput from '$lib/TextInput.svelte';
     import { RoomsStateOptions, type AnswersResponse, type SurveysResponse } from '$lib/pocketbase-types';
     import { onDestroy, onMount } from 'svelte';
-    import { pb } from '$lib/pocketbase';
+    import { pb, type Question } from '$lib/pocketbase';
     import type { RecordSubscription, UnsubscribeFunc } from 'pocketbase';
     import SurveyPicker from '$lib/SurveyPicker.svelte';
     import { goto } from '$app/navigation';
@@ -22,7 +22,9 @@
             .collection('answers')
             .subscribe(
                 '*',
-                async (e: RecordSubscription<AnswersResponse<{ [id: string]: string }, SurveysResponse>>) => {
+                async (
+                    e: RecordSubscription<AnswersResponse<{ [id: string]: string }, SurveysResponse<Question[]>>>
+                ) => {
                     if (e.action == 'create') {
                         data.answers?.push(e.record);
                         // eslint-disable-next-line no-self-assign
