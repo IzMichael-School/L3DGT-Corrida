@@ -30,7 +30,7 @@
 
 <label
     class={twMerge(
-        'relative mt-1 flex cursor-pointer flex-row items-center gap-1 overflow-hidden p-1 transition-colors duration-200 ease-in-out',
+        'relative mt-1 flex shrink-0 cursor-pointer flex-row items-center gap-1 overflow-hidden p-1 transition-colors duration-200 ease-in-out',
         variants[variant].wrapper,
         xclass
     )}
