@@ -43,6 +43,10 @@
     let tab = 'individual';
 </script>
 
+<svelte:head>
+    <title>Editing Room | Voix</title>
+</svelte:head>
+
 <div
     class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:max-h-full lg:flex-row lg:justify-center"
 >

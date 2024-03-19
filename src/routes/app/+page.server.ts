@@ -25,14 +25,17 @@ export const load: PageServerLoad = ({ locals }) => {
 };
 
 export const actions: Actions = {
-    default: async ({ locals, request }) => {
+    profile: async ({ locals, request }) => {
         if (!locals.user?.id) return error(401, 'You must be logged in to complete this action.');
 
         const data = Object.fromEntries(await request.formData()) as {
             id: string;
             username: string;
             displayname: string;
+            gravatar: ('on' | undefined) | boolean;
         };
+
+        data.gravatar = data.gravatar == 'on' ? true : false;
 
         try {
             await locals.pb.collection('users').update(data.id, data);
@@ -44,6 +47,32 @@ export const actions: Actions = {
             if (e?.response.data?.password) return fail(400, { error: e.response.data.password.message });
 
             throw e;
+        }
+
+        return;
+    },
+    email: async ({ locals, request }) => {
+        if (!locals.user?.id) return error(401, 'You must be logged in to complete this action.');
+
+        const data = Object.fromEntries(await request.formData()) as {
+            email: string;
+        };
+
+        try {
+            await locals.pb.collection('users').requestEmailChange(data.email);
+        } catch (e: any) {
+            return fail(400, { error: JSON.stringify(e?.response.data) });
+        }
+
+        return;
+    },
+    password: async ({ locals }) => {
+        if (!locals.user?.id) return error(401, 'You must be logged in to complete this action.');
+
+        try {
+            await locals.pb.collection('users').requestPasswordReset(locals.user.email);
+        } catch (e: any) {
+            return fail(400, { error: JSON.stringify(e?.response.data) });
         }
 
         return;

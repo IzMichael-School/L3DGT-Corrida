@@ -1,5 +1,5 @@
 import { createInstance } from '$lib/pocketbase';
-import type { Handle } from '@sveltejs/kit';
+import { error, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
     const pb = createInstance();
@@ -14,6 +14,9 @@ export const handle: Handle = async ({ event, resolve }) => {
     } catch (_) {
         // clear the auth store on failed refresh
         pb.authStore.clear();
+        if (event.route.id?.startsWith('/app')) {
+            return error(401, 'You must be logged in to complete this action.');
+        }
     }
 
     event.locals.pb = pb;

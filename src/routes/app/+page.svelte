@@ -7,11 +7,20 @@
     import { applyAction, enhance } from '$app/forms';
 
     let saving = false,
-        savingToast: string;
+        savingToast: string,
+        savingEmail = false,
+        emailToast: string,
+        savingPassword = false,
+        passwordToast: string;
 
     import type { PageData } from './$types';
+    import BooleanInput from '$lib/BooleanInput.svelte';
     export let data: PageData, form;
 </script>
+
+<svelte:head>
+    <title>Dashboard | Voix</title>
+</svelte:head>
 
 <div class="flex h-full max-h-full w-full flex-col items-center justify-start gap-3 lg:flex-row lg:justify-center">
     <div class="flex w-full flex-col items-center justify-start gap-5 lg:h-full lg:w-auto lg:flex-1">
@@ -113,6 +122,7 @@
 
             <form
                 method="POST"
+                action="?/profile"
                 class="contents"
                 enctype="multipart/form-data"
                 use:enhance={() => {
@@ -129,17 +139,36 @@
                 }}
                 on:submit={() => (saving = true)}
             >
-                <p class="mt-3 w-full text-left">Display Name</p>
-                <TextInput bind:value={data.user.displayname} name="displayname" class="w-full" />
+                <div class="flex w-full flex-row items-center justify-between gap-3">
+                    <div class="flex flex-1 flex-col items-center justify-start">
+                        <p class="mt-3 w-full text-left">Display Name</p>
+                        <TextInput bind:value={data.user.displayname} name="displayname" class="w-full" />
+                    </div>
+                    <div class="flex flex-1 flex-col items-center justify-start">
+                        <p class="mt-3 w-full text-left">Username</p>
+                        <TextInput bind:value={data.user.username} name="username" class="w-full" />
+                    </div>
+                </div>
 
-                <p class="mt-3 w-full text-left">Username</p>
-                <TextInput bind:value={data.user.username} name="username" class="w-full" />
+                <div class="flex w-full flex-row items-center justify-between gap-3">
+                    <p class="mt-3 w-full text-left">
+                        Use <a href="https://gravatar.com/" class="text-blue-500 hover:underline">Gravatar</a>
+                        as Profile Picture
+                    </p>
+                    <BooleanInput
+                        bind:value={data.user.gravatar}
+                        variant="switch"
+                        name="gravatar"
+                        class="rounded-full"
+                        classInner="rounded-full"
+                    />
+                </div>
 
                 <input name="id" class="hidden" value={data.user.id} />
 
                 <Button
                     type="submit"
-                    class="mt-10"
+                    class="mt-3"
                     variant={saving ? 'secondary' : 'default'}
                     on:click={async () => {
                         savingToast = Toast.add('Saving...', {
@@ -156,9 +185,86 @@
                 {/if}
             </form>
 
-            <a class="mt-3 text-center text-xs italic hover:underline" href="https://gravatar.com/">
-                Avatars from gravatar.com
-            </a>
+            <form
+                method="POST"
+                action="?/email"
+                class="contents"
+                enctype="multipart/form-data"
+                use:enhance={() => {
+                    return async ({ result }) => {
+                        pb.authStore.loadFromCookie(document.cookie);
+                        await applyAction(result);
+                        savingEmail = false;
+
+                        Toast.dismiss(emailToast);
+                        Toast.add('Sent Confirmation.', {
+                            type: 'success',
+                            body: 'Please check your inbox.',
+                        });
+                    };
+                }}
+                on:submit={() => (savingEmail = true)}
+            >
+                <p class="mt-10 w-full text-left">Email Address</p>
+                <TextInput bind:value={data.user.email} name="email" type="email" autocomplete="email" class="w-full" />
+
+                <Button
+                    type="submit"
+                    class="mt-3"
+                    variant={savingEmail ? 'secondary' : 'default'}
+                    on:click={async () => {
+                        emailToast = Toast.add('Sending confirmation...', {
+                            type: 'info',
+                            timeout: 60 * 60 * 1000,
+                        });
+                    }}
+                >
+                    {savingEmail ? 'Updating...' : 'Update Email'}
+                </Button>
+
+                {#if form?.error}
+                    <p class="mt-5 w-full text-center font-bold text-red-700">{form.error}</p>
+                {/if}
+            </form>
+
+            <form
+                method="POST"
+                action="?/password"
+                class="contents"
+                enctype="multipart/form-data"
+                use:enhance={() => {
+                    return async ({ result }) => {
+                        pb.authStore.loadFromCookie(document.cookie);
+                        await applyAction(result);
+                        savingPassword = false;
+
+                        Toast.dismiss(passwordToast);
+                        Toast.add('Sent Confirmation.', {
+                            type: 'success',
+                            body: 'Please check your inbox.',
+                        });
+                    };
+                }}
+                on:submit={() => (savingPassword = true)}
+            >
+                <Button
+                    type="submit"
+                    class="mt-5"
+                    variant={savingPassword ? 'secondary' : 'default'}
+                    on:click={async () => {
+                        passwordToast = Toast.add('Sending confirmation...', {
+                            type: 'info',
+                            timeout: 60 * 60 * 1000,
+                        });
+                    }}
+                >
+                    {savingPassword ? 'Updating...' : 'Update Password'}
+                </Button>
+
+                {#if form?.error}
+                    <p class="mt-5 w-full text-center font-bold text-red-700">{form.error}</p>
+                {/if}
+            </form>
         </div>
     </div>
 </div>

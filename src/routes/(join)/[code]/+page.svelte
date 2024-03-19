@@ -75,7 +75,7 @@
 </script>
 
 <svelte:head>
-    <title>Survey | Voix</title>
+    <title>{data.title} | Voix</title>
 </svelte:head>
 
 <svelte:window on:keyup={() => (completed = checkRequired())} />

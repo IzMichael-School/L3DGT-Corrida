@@ -26,6 +26,7 @@ export const actions: Actions = {
             await locals.pb.collection('users').create({
                 ...data,
                 gravatarhash,
+                gravatar: true,
             });
             await locals.pb.collection('users').requestVerification(data.email);
             await locals.pb.collection('users').authWithPassword(data.email, data.password);

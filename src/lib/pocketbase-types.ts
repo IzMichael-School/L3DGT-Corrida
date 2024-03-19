@@ -65,6 +65,7 @@ export type SurveysRecord<Tquestions = unknown> = {
 
 export type UsersRecord = {
     gravatarhash: string;
+    gravatar: boolean;
     displayname?: string;
 };
 
