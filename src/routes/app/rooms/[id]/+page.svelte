@@ -204,7 +204,7 @@
                 on:click={() => (tab = 'individual')}
             >
                 Individual
-                <span class="hidden lg:inline">Answers ({data.answers?.length})</span>
+                <span class="hidden lg:inline">&hairsp; Answers ({data.answers?.length})</span>
             </Button>
             <Button
                 variant={tab == 'aggregate' ? 'primary' : 'secondary'}
