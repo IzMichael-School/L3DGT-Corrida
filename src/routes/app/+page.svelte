@@ -113,7 +113,7 @@
     >
         <div class="flex w-full flex-1 flex-col items-center justify-center">
             <img
-                src={getGravatarUrl(data.live.gravatarhash ?? '')}
+                src={getGravatarUrl(data.live.gravatarhash ?? '', data.user.gravatar ?? false)}
                 alt="{data.live.displayname}'s Profile Picture"
                 class="w-1/3 rounded-full shadow"
             />

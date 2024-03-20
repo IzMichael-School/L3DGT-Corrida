@@ -110,7 +110,10 @@
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>
                 <h2 class="mt-1 text-center text-xl font-bold">
                     hosted by <img
-                        src={getGravatarUrl(data.expand?.owner.gravatarhash ?? '')}
+                        src={getGravatarUrl(
+                            data.expand?.owner.gravatarhash ?? '',
+                            data.expand?.owner.gravatar ?? false
+                        )}
                         class="mb-1 ml-2 inline-block h-7 w-7 rounded-full"
                         alt="{data.expand?.owner.displayname}'s Profile Picture"
                     />
@@ -133,7 +136,10 @@
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>
                 <h2 class="-mt-4 text-xl font-bold">
                     hosted by <img
-                        src={getGravatarUrl(data.expand?.owner.gravatarhash ?? '')}
+                        src={getGravatarUrl(
+                            data.expand?.owner.gravatarhash ?? '',
+                            data.expand?.owner.gravatar ?? false
+                        )}
                         class="w-7ml-2 mb-1 inline-block h-7 rounded-full"
                         alt="{data.expand?.owner.displayname}'s Profile Picture"
                     />

@@ -24,8 +24,8 @@ export async function getGravatarHash(email: string) {
     return hash;
 }
 
-export function getGravatarUrl(hash: string) {
-    return `https://www.gravatar.com/avatar/${hash}?s=250&d=retro&r=pg`;
+export function getGravatarUrl(hash: string, use = true) {
+    return `https://www.gravatar.com/avatar/${hash}?s=250&d=retro&r=pg${use ? '&f=y' : ''}`;
 }
 
 async function sha256(str: string) {
