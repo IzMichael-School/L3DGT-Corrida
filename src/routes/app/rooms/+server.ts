@@ -1,7 +1,7 @@
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { customAlphabet } from 'nanoid';
-const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', 7);
+const nanoid = customAlphabet('ABCDEFGHIJKLMNPQRTUVWXY346789', 7);
 
 export const GET: RequestHandler = async ({ locals }) => {
     const rooms = await locals.pb.collection('rooms').getFullList(200, {
