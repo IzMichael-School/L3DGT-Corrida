@@ -21,7 +21,10 @@ export const load: PageServerLoad = async ({ locals, params }) => {
             filter: `room = "${room.id}"`,
             sort: '-created',
         });
-        surveys = await locals.pb.collection('surveys').getFullList<SurveysResponse<Question[]>>(200);
+        surveys = await locals.pb.collection('surveys').getFullList<SurveysResponse<Question[]>>(200, {
+            filter: `owner.id = "${locals.user?.id}"`,
+            sort: '-title',
+        });
     } catch (err) {
         if (!room?.id) error(404, "Couldn't find the requested room.");
     }
