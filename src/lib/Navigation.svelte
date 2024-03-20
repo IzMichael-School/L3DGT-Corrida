@@ -8,7 +8,7 @@
     class="flex h-20 w-full flex-row justify-between gap-3 rounded-t-xl border-t-2 border-r-gray-200 bg-white p-3 shadow-lg lg:mt-0 lg:h-full lg:w-64 lg:flex-col lg:justify-start lg:gap-0 lg:rounded-none lg:border-r-2 lg:border-t-0 lg:p-5"
 >
     <div class="mb-5 hidden w-full flex-row items-center justify-center lg:flex">
-        <img src="/assets/icons/checkbox.svg" alt="Checkbox Icon" class="mr-3 mt-1 h-8 w-8" />
+        <img src="/favicon.png" alt="Voix Logo" class="mr-3 mt-1 h-8 w-8" />
         <h1 class="font-jura text-4xl font-bold text-brand">Voix</h1>
     </div>
 
