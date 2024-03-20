@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
         });
         surveys = await locals.pb.collection('surveys').getFullList<SurveysResponse<Question[]>>(200, {
             filter: `owner.id = "${locals.user?.id}"`,
-            sort: '-title',
+            sort: 'title',
         });
     } catch (err) {
         if (!room?.id) error(404, "Couldn't find the requested room.");
