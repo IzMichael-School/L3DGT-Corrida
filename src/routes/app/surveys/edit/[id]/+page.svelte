@@ -125,12 +125,12 @@
                     {#if (question.type == 'number' || question.type == 'rating') && question.options?.max != undefined && question.options?.min != undefined}
                         <div class="flex w-full flex-col items-center justify-start gap-1">
                             <p class="w-full text-sm">Maximum Value</p>
-                            <TextInput bind:value={question.options['max']} class="w-full" type="number" />
+                            <TextInput bind:value={question.options['max']} class="w-full min-w-4" type="number" />
                         </div>
                         {#if question.type != 'rating'}
                             <div class="flex w-full flex-col items-center justify-start gap-1">
                                 <p class="w-full text-sm">Minimum Value</p>
-                                <TextInput bind:value={question.options['min']} class="w-full" type="number" />
+                                <TextInput bind:value={question.options['min']} class="w-full min-w-4" type="number" />
                             </div>
                         {/if}
                     {/if}
@@ -138,11 +138,11 @@
                     {#if question.type == 'boolean' && question.options?.true != undefined && question.options?.false != undefined}
                         <div class="flex w-full flex-col items-center justify-start gap-1">
                             <p class="w-full text-sm">True Label</p>
-                            <TextInput bind:value={question.options['true']} class="w-full" />
+                            <TextInput bind:value={question.options['true']} class="w-full min-w-4" />
                         </div>
                         <div class="flex w-full flex-col items-center justify-start gap-1">
                             <p class="w-full text-sm">False Label</p>
-                            <TextInput bind:value={question.options['false']} class="w-full" />
+                            <TextInput bind:value={question.options['false']} class="w-full min-w-4" />
                         </div>
                     {/if}
 
@@ -154,7 +154,7 @@
                             >
                                 <p class="w-full text-sm">Option Label</p>
                                 <div class="flex w-full flex-row items-center justify-between gap-1">
-                                    <TextInput bind:value={question.options[entry]} class="mb-0 flex-1" />
+                                    <TextInput bind:value={question.options[entry]} class="mb-0 min-w-4 flex-1" />
                                     <Button
                                         variant="danger"
                                         class="aspect-square w-fit p-2"
@@ -173,7 +173,7 @@
                         <div class="flex flex-col items-center justify-end">
                             <Button
                                 variant="secondary"
-                                class="h-fit text-base"
+                                class="h-fit min-w-4 text-base"
                                 on:click={() => {
                                     question.options[nanoid()] = '';
                                 }}
