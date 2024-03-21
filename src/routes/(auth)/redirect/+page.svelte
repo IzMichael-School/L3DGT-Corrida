@@ -1,5 +1,12 @@
 <script lang="ts">
-    window.location.href = '/app';
+    import type { PageData } from './$types';
+    export let data: PageData;
+
+    if (data.user?.id) {
+        window.location.href = '/app';
+    } else {
+        window.location.href = '/';
+    }
 </script>
 
 <svelte:head>

@@ -5,9 +5,12 @@
 
     import { applyAction, enhance } from '$app/forms';
     import Copyright from '$lib/Copyright.svelte';
-    export let form;
+
     let loading = false,
         joinCode = '';
+
+    import type { PageData } from './$types';
+    export let data: PageData, form;
 </script>
 
 <svelte:head>
@@ -59,10 +62,16 @@
             <p class="decor-line my-8 w-full text-center font-bold text-gray-400"><span>or</span></p>
 
             <p class="w-full text-center font-bold text-gray-700">Log in to Host Your Own</p>
-            <div class="mt-3 flex w-full flex-row gap-3">
-                <Button variant="default" on:click={() => goto('/login')}>Log In</Button>
-                <Button variant="secondary" on:click={() => goto('/register')}>Register</Button>
-            </div>
+            {#if data.user}
+                <Button variant="default" class="mt-3" on:click={() => goto('/redirect')}>
+                    Welcome Back, {data.user.displayname}
+                </Button>
+            {:else}
+                <div class="mt-3 flex w-full flex-row gap-3">
+                    <Button variant="default" on:click={() => goto('/login')}>Log In</Button>
+                    <Button variant="secondary" on:click={() => goto('/register')}>Register</Button>
+                </div>
+            {/if}
         </div>
 
         <Copyright />
