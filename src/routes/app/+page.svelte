@@ -6,7 +6,8 @@
     import { goto } from '$app/navigation';
     import { applyAction, enhance } from '$app/forms';
 
-    let saving = false,
+    let verificationSent = false,
+        saving = false,
         savingToast: string,
         savingEmail = false,
         emailToast: string,
@@ -27,6 +28,25 @@
         <div class="flex w-full flex-col items-center justify-center rounded-lg bg-white p-5 shadow">
             <h1 class="text-center text-6xl font-bold">Welcome to Voix</h1>
         </div>
+
+        {#if !data.live.verified}
+            <div
+                class="mb-3 flex w-full flex-col items-center justify-start rounded-xl border-4 border-yellow-400 bg-white p-2 text-black shadow-md lg:mb-7 lg:px-2 lg:py-2"
+            >
+                <h2 class="text-lg font-bold">Your email is not yet verified</h2>
+                <Button
+                    on:click={async () => {
+                        if (verificationSent) return;
+                        pb.collection('users').requestVerification(data.live.email);
+                        verificationSent = true;
+                    }}
+                    class="mt-2 w-full bg-yellow-400 hover:bg-yellow-300"
+                    variant="secondary"
+                >
+                    {verificationSent ? 'Done! Check your email inbox.' : 'Resend Verification Email'}
+                </Button>
+            </div>
+        {/if}
 
         <span class="flex-1" />
 
@@ -221,10 +241,6 @@
                 >
                     {savingEmail ? 'Updating...' : 'Update Email'}
                 </Button>
-
-                {#if form?.error}
-                    <p class="mt-5 w-full text-center font-bold text-red-700">{form.error}</p>
-                {/if}
             </form>
 
             <form
@@ -260,10 +276,6 @@
                 >
                     {savingPassword ? 'Updating...' : 'Update Password'}
                 </Button>
-
-                {#if form?.error}
-                    <p class="mt-5 w-full text-center font-bold text-red-700">{form.error}</p>
-                {/if}
             </form>
         </div>
     </div>
