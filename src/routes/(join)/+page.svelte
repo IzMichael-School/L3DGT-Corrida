@@ -20,7 +20,9 @@
 <div
     class="flex h-screen max-h-screen w-screen flex-col-reverse items-center justify-between overflow-hidden lg:flex-row"
 >
-    <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-y-auto shadow-lg">
+    <section
+        class="flex h-full max-h-full w-full flex-1 flex-col items-center justify-start overflow-y-auto shadow-lg lg:w-auto"
+    >
         <div class="flex w-full flex-1 flex-col items-center justify-center px-5 py-10 lg:w-2/3 lg:px-0">
             <h1 class="text-center text-6xl font-bold">Welcome to Voix</h1>
 
