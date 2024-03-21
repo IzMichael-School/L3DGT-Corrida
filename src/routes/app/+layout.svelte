@@ -21,7 +21,7 @@
     <div
         class="flex w-full flex-row items-center justify-center rounded-b-xl border-b-2 border-r-gray-200 bg-white p-3 shadow-lg lg:hidden"
     >
-        <img src="/assets/icons/checkbox.svg" alt="Checkbox Icon" class="mr-3 mt-1 h-8 w-8" />
+        <img src="/favicon.png" alt="Voix Logo" class="mr-3 mt-1 h-8 w-8" />
         <h1 class="font-jura text-4xl font-bold text-brand">Voix</h1>
     </div>
 </div>

@@ -22,7 +22,7 @@
     <title>Dashboard | Voix</title>
 </svelte:head>
 
-<div class="flex h-full max-h-full w-full flex-col items-center justify-start gap-3 lg:flex-row lg:justify-center">
+<div class="flex h-full max-h-full w-full flex-col items-start justify-start gap-3 lg:flex-row lg:justify-center">
     <div class="flex w-full flex-col items-center justify-start gap-5 lg:h-full lg:w-auto lg:flex-1">
         <div class="flex w-full flex-col items-center justify-center rounded-lg bg-white p-5 shadow">
             <h1 class="text-center text-6xl font-bold">Welcome to Voix</h1>
@@ -109,7 +109,7 @@
     </div>
 
     <div
-        class="flex w-full flex-col items-center justify-start rounded-lg bg-white p-5 shadow lg:h-full lg:w-auto lg:flex-1 lg:overflow-auto"
+        class="flex w-full flex-col items-center justify-start rounded-lg bg-white p-5 shadow lg:min-h-full lg:w-auto lg:flex-1"
     >
         <div class="flex w-full flex-1 flex-col items-center justify-center">
             <img
