@@ -2,6 +2,7 @@
     import { applyAction, enhance } from '$app/forms';
     import { pb } from '$lib/pocketbase';
     import { page } from '$app/stores';
+    import Copyright from '$lib/Copyright.svelte';
 </script>
 
 <div
@@ -48,6 +49,12 @@
             <p>Log Out</p>
         </button>
     </form>
+
+    <span class="hidden flex-1 lg:block" />
+
+    <div class="hidden lg:contents">
+        <Copyright />
+    </div>
 </div>
 
 <style>
