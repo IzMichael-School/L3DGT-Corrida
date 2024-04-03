@@ -13,28 +13,28 @@
         <h1 class="font-jura text-4xl font-bold text-brand">Voix</h1>
     </div>
 
-    <a class="nav-button lg:[nav-button]" class:active={$page.route.id == '/app'} href="/app">
+    <a class="nav-button" class:active={$page.route.id == '/app'} href="/app">
         <img src="/assets/icons/layout-dashboard.svg" alt="Dashboard Icon" />
         <p>Dashboard</p>
     </a>
 
-    <a class="nav-button lg:[nav-button]" class:active={$page.route.id?.startsWith('/app/surveys')} href="/app/surveys">
+    <a class="nav-button" class:active={$page.route.id?.startsWith('/app/surveys')} href="/app/surveys">
         <img src="/assets/icons/list-numbers.svg" alt="List with Numbers Icon" />
         <p>Surveys</p>
     </a>
 
-    <a class="nav-button lg:[nav-button]" class:active={$page.route.id?.startsWith('/app/rooms')} href="/app/rooms">
+    <a class="nav-button" class:active={$page.route.id?.startsWith('/app/rooms')} href="/app/rooms">
         <img src="/assets/icons/users-group.svg" alt="Group of People Icon" />
         <p>Rooms</p>
     </a>
 
-    <a class="nav-button lg:[nav-button] lg:mt-5" href="/">
+    <a class="nav-button lg:mt-5" href="/">
         <img src="/assets/icons/door-enter.svg" alt="Door with Arrow Pointing Inwards Icon" />
         <p>Join Room</p>
     </a>
 
     <a
-        class="nav-button lg:[nav-button]"
+        class="nav-button"
         href="https://forms.izmichael.com/customer-support-generic?source-site=Voix"
         target="_blank"
     >
@@ -69,7 +69,7 @@
 <style>
     .nav-button {
         /* eslint-disable-next-line svelte/valid-compile */
-        @apply flex flex-1 flex-col items-center justify-start whitespace-nowrap rounded-lg border p-2 px-5 text-center text-xs font-bold shadow lg:mb-2 lg:flex-none lg:flex-row lg:px-2 lg:text-left lg:text-base;
+        @apply flex flex-1 flex-col items-center justify-start whitespace-nowrap rounded-lg border p-2 px-5 text-center font-bold shadow lg:mb-2 lg:flex-none lg:flex-row lg:px-2 lg:text-left;
     }
     .nav-button:hover {
         @apply bg-zinc-100;
@@ -79,6 +79,6 @@
     }
     .nav-button img {
         /* eslint-disable-next-line svelte/valid-compile */
-        @apply h-5 w-5 lg:mr-2;
+        @apply lg:h-5 lg:w-5 h-7 w-7 lg:mr-2;
     }
 </style>
