@@ -5,6 +5,7 @@
 
     import { applyAction, enhance } from '$app/forms';
     import Copyright from '$lib/Copyright.svelte';
+    import SupportIcon from '$lib/SupportIcon.svelte';
 
     let loading = false,
         joinCode = '';
@@ -16,6 +17,8 @@
 <svelte:head>
     <title>Voix</title>
 </svelte:head>
+
+<SupportIcon position="max-lg:bottom-0 lg:top-0 left-0" />
 
 <div
     class="flex h-screen max-h-screen w-screen flex-col-reverse items-center justify-between overflow-hidden lg:flex-row"

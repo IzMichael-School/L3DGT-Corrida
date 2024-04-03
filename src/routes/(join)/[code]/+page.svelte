@@ -1,6 +1,7 @@
 <script lang="ts">
     import Button from '$lib/Button.svelte';
     import TextInput from '$lib/TextInput.svelte';
+    import SupportIcon from '$lib/SupportIcon.svelte';
     import { getGravatarUrl, pb } from '$lib/pocketbase';
     import { onDestroy, onMount } from 'svelte';
     import dayjs from 'dayjs';
@@ -80,6 +81,8 @@
 
 <svelte:window on:keyup={() => (completed = checkRequired())} />
 
+<SupportIcon position="top-0 max-lg:left-0 lg:right-0 lg:flex-row-reverse" />
+
 <div class="flex h-screen w-screen flex-row items-center justify-between overflow-hidden">
     <section class="relative hidden h-full flex-1 items-center justify-center shadow-inner lg:flex">
         <img
@@ -132,7 +135,7 @@
         </section>
     {:else if data.state == 'active' && !submitted}
         <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-auto shadow-lg">
-            <div class="flex flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
+            <div class="flex w-full flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>
                 <h2 class="-mt-4 text-xl font-bold">
                     hosted by <img

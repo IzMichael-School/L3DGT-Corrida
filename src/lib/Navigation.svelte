@@ -33,6 +33,15 @@
         <p>Join Room</p>
     </a>
 
+    <a
+        class="nav-button lg:[nav-button]"
+        href="https://forms.izmichael.com/customer-support-generic?source-site=Voix"
+        target="_blank"
+    >
+        <img src="/assets/icons/lifebuoy.svg" alt="Lifebuoy Icon" />
+        <p>Support</p>
+    </a>
+
     <form
         method="POST"
         action="/logout"

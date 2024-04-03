@@ -1,10 +1,13 @@
 <script lang="ts">
     import Copyright from '$lib/Copyright.svelte';
+    import SupportIcon from '$lib/SupportIcon.svelte';
 </script>
+
+<SupportIcon position="top-0 left-0" />
 
 <div class="flex h-screen max-h-screen w-screen flex-row items-center justify-between overflow-hidden">
     <section class="flex h-full max-h-full flex-1 flex-col items-center justify-start overflow-y-auto shadow-lg">
-        <a href="/" class="w-full p-2 text-left hover:underline">&leftarrow; Return Home</a>
+        <a href="/" class="w-full translate-y-8 p-2 text-left hover:underline">&leftarrow; Return Home</a>
 
         <div class="flex w-full flex-1 flex-col items-center justify-center px-5 py-2 lg:w-2/3 lg:px-0">
             <slot />
