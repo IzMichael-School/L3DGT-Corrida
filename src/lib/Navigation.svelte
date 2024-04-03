@@ -6,7 +6,7 @@
 </script>
 
 <div
-    class="flex h-20 w-full flex-row justify-between gap-3 rounded-t-xl border-t-2 border-r-gray-200 bg-white p-3 shadow-lg lg:mt-0 lg:h-full lg:w-64 lg:flex-col lg:justify-start lg:gap-0 lg:rounded-none lg:border-r-2 lg:border-t-0 lg:p-5"
+    class="flex h-20 w-full flex-row justify-between gap-3 overflow-x-auto rounded-t-xl border-t-2 border-r-gray-200 bg-white p-3 shadow-lg lg:mt-0 lg:h-full lg:w-64 lg:flex-col lg:justify-start lg:gap-0 lg:overflow-x-hidden lg:rounded-none lg:border-r-2 lg:border-t-0 lg:p-5"
 >
     <div class="mb-5 hidden w-full flex-row items-center justify-center lg:flex">
         <img src="/favicon.png" alt="Voix Logo" class="mr-3 mt-1 h-8 w-8" />
@@ -69,7 +69,7 @@
 <style>
     .nav-button {
         /* eslint-disable-next-line svelte/valid-compile */
-        @apply flex flex-1 flex-col items-center justify-start whitespace-nowrap rounded-lg border p-2 text-center text-xs font-bold shadow lg:mb-2 lg:flex-none lg:flex-row lg:text-left lg:text-base;
+        @apply flex flex-1 flex-col items-center justify-start whitespace-nowrap rounded-lg border p-2 px-5 text-center text-xs font-bold shadow lg:mb-2 lg:flex-none lg:flex-row lg:px-2 lg:text-left lg:text-base;
     }
     .nav-button:hover {
         @apply bg-zinc-100;
