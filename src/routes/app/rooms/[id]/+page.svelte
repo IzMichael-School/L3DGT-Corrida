@@ -67,7 +67,24 @@
             </div>
 
             <p class="mb-1 mt-5 w-full text-left text-sm">Selected Survey</p>
-            <SurveyPicker bind:value={data.room.survey} surveys={data.surveys ?? []} />
+            <SurveyPicker
+                bind:value={data.room.survey}
+                surveys={data.surveys ?? []}
+                on:select={async () => {
+                    let working = Toast.add('Saving Survey Selection...', {
+                        type: 'info',
+                        timeout: 60 * 60 * 1000,
+                    });
+                    await fetch('/app/rooms/' + data.room.id, {
+                        method: 'PUT',
+                        body: JSON.stringify(data.room),
+                    });
+                    Toast.dismiss(working);
+                    Toast.add('Saved Changes.', {
+                        type: 'success',
+                    });
+                }}
+            />
 
             <span class="min-h-5 flex-1" />
 

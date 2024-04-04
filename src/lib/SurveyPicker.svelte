@@ -11,6 +11,9 @@
     let selected: SurveysResponse<Question[]>,
         modalShown = false,
         filter = '';
+
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
 </script>
 
 {#if modalShown}
@@ -57,7 +60,15 @@
                         {/if}
                     {/each}
                     <span class="flex-1" />
-                    <Button on:click={() => ((value = selected.id), (modalShown = false))} class="mt-5">Select</Button>
+                    <Button
+                        on:click={() => {
+                            (value = selected.id), (modalShown = false);
+                            dispatch('select');
+                        }}
+                        class="mt-5"
+                    >
+                        Select
+                    </Button>
                 {:else}
                     <p>Select a Survey to Preview</p>
                 {/if}
