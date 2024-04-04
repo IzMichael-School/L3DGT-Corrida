@@ -50,6 +50,8 @@
         unsubscribe?.();
     });
 
+    $: checkRequired(answers);
+
     function checkRequired() {
         if (!data.expand?.survey.questions) return false;
         let tests: boolean[] = [];
@@ -58,6 +60,7 @@
         ) ?? []) {
             tests.push(answers[b.id] != '');
         }
+        console.log(tests, answers);
         return !tests.includes(false) && nickname?.length > 0;
     }
 
