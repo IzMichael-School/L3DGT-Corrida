@@ -155,6 +155,7 @@
                         Toast.add('Saved Changes.', {
                             type: 'success',
                         });
+                        data.live = data.user;
                     };
                 }}
                 on:submit={() => (saving = true)}
