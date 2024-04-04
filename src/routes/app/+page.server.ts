@@ -61,7 +61,7 @@ export const actions: Actions = {
         try {
             await locals.pb.collection('users').requestEmailChange(data.email);
         } catch (e: any) {
-            return fail(400, { error: JSON.stringify(e?.response.data) });
+            return fail(400, { error: e?.response.data.message });
         }
 
         return;
@@ -72,7 +72,7 @@ export const actions: Actions = {
         try {
             await locals.pb.collection('users').requestPasswordReset(locals.user.email);
         } catch (e: any) {
-            return fail(400, { error: JSON.stringify(e?.response.data) });
+            return fail(400, { error: e?.response.data.message });
         }
 
         return;
