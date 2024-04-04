@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ({ locals }) => {
     const room = await locals.pb.collection('rooms').create({
         title: 'Untitled Room',
         code: nanoid(),
-        status: 'waiting',
+        state: 'waiting',
         owner: locals.user.id,
     });
     return json(room);
