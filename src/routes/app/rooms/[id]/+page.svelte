@@ -144,6 +144,13 @@
                         type: 'info',
                         timeout: 60 * 60 * 1000,
                     });
+                    if (!data.room.survey) {
+                        Toast.dismiss(working);
+                        Toast.add('You must pick a survey first.', {
+                            type: 'danger',
+                        });
+                        return;
+                    }
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
                         body: JSON.stringify({
@@ -167,6 +174,13 @@
                         type: 'info',
                         timeout: 60 * 60 * 1000,
                     });
+                    if (!data.room.survey) {
+                        Toast.dismiss(working);
+                        Toast.add('You must pick a survey first.', {
+                            type: 'danger',
+                        });
+                        return;
+                    }
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
                         body: JSON.stringify({
