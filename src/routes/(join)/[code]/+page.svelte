@@ -84,30 +84,24 @@
 <SupportIcon position="top-0 max-lg:left-0 lg:right-0 lg:flex-row-reverse" />
 
 <div class="flex h-screen w-screen flex-row items-center justify-between overflow-hidden">
-    <section class="relative hidden h-full flex-1 items-center justify-center shadow-inner lg:flex">
+    <section class="hidden h-full flex-1 items-center justify-center shadow-inner lg:flex">
         <img
             src={pb.files.getUrl(data, data.banner) || '/assets/img/microphone-unsplash.jpg'}
             alt="{data.title}'s Banner Image"
             class="h-full w-full object-cover"
         />
-        {#if !data.banner}
-            <div class="absolute inset-0 z-10 h-full w-full bg-purple-500/20" />
-        {/if}
     </section>
 
     {#if data.state == 'waiting'}
         <section class="relative flex h-full flex-1 flex-col items-center justify-center shadow-lg">
             <a href="/" class="absolute left-0 top-0 w-full p-2 text-left hover:underline">&leftarrow; Return Home</a>
 
-            <div class="relative h-[25vh] w-full lg:hidden">
+            <div class="h-[25vh] w-full lg:hidden">
                 <img
                     src={pb.files.getUrl(data, data.banner) || '/assets/img/microphone-unsplash.jpg'}
                     alt="{data.title}'s Banner Image"
                     class="h-full w-full object-cover"
                 />
-                {#if !data.banner}
-                    <div class="absolute inset-0 z-10 h-full w-full bg-purple-500/20" />
-                {/if}
             </div>
             <div class="flex flex-1 flex-col items-center justify-center px-5 py-2 lg:w-2/3 lg:px-0">
                 <h1 class="text-center text-3xl font-bold">{data.title}</h1>

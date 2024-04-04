@@ -82,13 +82,12 @@
         <Copyright />
     </section>
 
-    <section class="relative flex h-[25vh] w-full items-center justify-center lg:h-full lg:w-auto lg:flex-1">
+    <section class="flex h-[25vh] w-full items-center justify-center lg:h-full lg:w-auto lg:flex-1">
         <img
             src="/assets/img/microphone-unsplash.jpg"
             alt="Microphone on a Purple Background"
             class="h-full w-full object-cover"
         />
-        <div class="absolute inset-0 z-10 h-full w-full bg-purple-500/20" />
     </section>
 </div>
 
