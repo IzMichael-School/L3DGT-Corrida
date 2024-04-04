@@ -84,7 +84,7 @@
 
     <section class="flex h-[25vh] w-full items-center justify-center lg:h-full lg:w-auto lg:flex-1">
         <img
-            src="/assets/img/microphone-unsplash.jpg"
+            src="/assets/img/purple-microphone-unsplash.jpg"
             alt="Microphone on a Purple Background"
             class="h-full w-full object-cover"
         />

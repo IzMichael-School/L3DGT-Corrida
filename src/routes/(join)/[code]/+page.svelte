@@ -86,7 +86,7 @@
 <div class="flex h-screen w-screen flex-row items-center justify-between overflow-hidden">
     <section class="hidden h-full flex-1 items-center justify-center shadow-inner lg:flex">
         <img
-            src={pb.files.getUrl(data, data.banner) || '/assets/img/microphone-unsplash.jpg'}
+            src={pb.files.getUrl(data, data.banner) || '/assets/img/purple-microphone-unsplash.jpg'}
             alt="{data.title}'s Banner Image"
             class="h-full w-full object-cover"
         />
@@ -98,7 +98,7 @@
 
             <div class="h-[25vh] w-full lg:hidden">
                 <img
-                    src={pb.files.getUrl(data, data.banner) || '/assets/img/microphone-unsplash.jpg'}
+                    src={pb.files.getUrl(data, data.banner) || '/assets/img/purple-microphone-unsplash.jpg'}
                     alt="{data.title}'s Banner Image"
                     class="h-full w-full object-cover"
                 />
