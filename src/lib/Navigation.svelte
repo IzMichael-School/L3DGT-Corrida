@@ -6,7 +6,7 @@
 </script>
 
 <div
-    class="flex h-20 w-full flex-row justify-between gap-3 overflow-x-auto rounded-t-xl border-t-2 border-r-gray-200 bg-white p-3 shadow-lg lg:mt-0 lg:h-full lg:w-64 lg:flex-col lg:justify-start lg:gap-0 lg:overflow-x-hidden lg:rounded-none lg:border-r-2 lg:border-t-0 lg:p-5"
+    class="flex w-full flex-row justify-between gap-3 overflow-x-auto rounded-t-xl border-t-2 border-r-gray-200 bg-white p-3 shadow-lg lg:mt-0 lg:h-full lg:w-64 lg:flex-col lg:justify-start lg:gap-0 lg:overflow-x-hidden lg:rounded-none lg:border-r-2 lg:border-t-0 lg:p-5"
 >
     <div class="mb-5 hidden w-full flex-row items-center justify-center lg:flex">
         <img src="/favicon.png" alt="Voix Logo" class="mr-3 mt-1 h-8 w-8" />
@@ -33,11 +33,7 @@
         <p>Join Room</p>
     </a>
 
-    <a
-        class="nav-button"
-        href="https://forms.izmichael.com/customer-support-generic?source-site=Voix"
-        target="_blank"
-    >
+    <a class="nav-button" href="https://forms.izmichael.com/customer-support-generic?source-site=Voix" target="_blank">
         <img src="/assets/icons/lifebuoy.svg" alt="Lifebuoy Icon" />
         <p>Support</p>
     </a>
@@ -79,6 +75,6 @@
     }
     .nav-button img {
         /* eslint-disable-next-line svelte/valid-compile */
-        @apply lg:h-5 lg:w-5 h-7 w-7 lg:mr-2;
+        @apply h-7 w-7 lg:mr-2 lg:h-5 lg:w-5;
     }
 </style>
