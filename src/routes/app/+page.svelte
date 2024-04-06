@@ -2,10 +2,12 @@
     import TextInput from '$lib/TextInput.svelte';
     import { getGravatarUrl, pb } from '$lib/pocketbase';
     import Button from '$lib/Button.svelte';
+    import BooleanInput from '$lib/BooleanInput.svelte';
     import * as Toast from '$lib/toasts/toast';
     import { goto } from '$app/navigation';
     import { applyAction, enhance } from '$app/forms';
 
+    // Declare variables
     let verificationSent = false,
         saving = false,
         savingToast: string,
@@ -14,8 +16,8 @@
         savingPassword = false,
         passwordToast: string;
 
+    // Get data from server load function
     import type { PageData } from './$types';
-    import BooleanInput from '$lib/BooleanInput.svelte';
     export let data: PageData, form;
 </script>
 
@@ -25,15 +27,18 @@
 
 <div class="flex h-full max-h-full w-full flex-col items-start justify-start gap-3 lg:flex-row lg:justify-center">
     <div class="flex w-full flex-col items-center justify-start gap-5 lg:h-full lg:w-auto lg:flex-1">
+        <!-- Title -->
         <div class="flex w-full flex-col items-center justify-center rounded-lg bg-white p-5 shadow">
             <h1 class="text-center text-6xl font-bold">Welcome to Voix</h1>
         </div>
 
+        <!-- If user's email isn't verified, show notice -->
         {#if !data.live.verified}
             <div
                 class="mb-3 flex w-full flex-col items-center justify-start rounded-xl border-4 border-yellow-400 bg-white p-2 text-black shadow-md lg:mb-7 lg:px-2 lg:py-2"
             >
                 <h2 class="text-lg font-bold">Your email is not yet verified</h2>
+                <!-- Re-send verification email -->
                 <Button
                     on:click={async () => {
                         if (verificationSent) return;
@@ -48,9 +53,11 @@
             </div>
         {/if}
 
+        <!-- Push content down -->
         <span class="flex-1" />
 
         <div class="flex w-full flex-col items-center justify-center gap-3 rounded-lg bg-white p-5 shadow">
+            <!-- Creates new room -->
             <Button
                 variant="primary"
                 class="justify-start bg-brand-green shadow"
@@ -65,6 +72,7 @@
                 <p class="ml-5 text-xl font-bold text-white">Create new Room</p>
             </Button>
 
+            <!-- Creates new survey -->
             <Button
                 variant="primary"
                 class="justify-start bg-brand-blue shadow"
@@ -83,6 +91,7 @@
                 <p class="ml-5 text-xl font-bold text-white">Create new Survey</p>
             </Button>
 
+            <!-- Navigates to home page -->
             <a href="/" class="contents">
                 <Button variant="primary" class="justify-start bg-brand shadow">
                     <img
@@ -96,6 +105,7 @@
         </div>
 
         <div class="flex w-full flex-col items-center justify-center gap-3 rounded-lg bg-white p-5 shadow">
+            <!-- Resumes most recently edited room -->
             {#await data.recents.room then room}
                 <a href="/app/rooms/{room.id}" class="contents">
                     <Button variant="primary" class="justify-start bg-brand-green shadow">
@@ -111,6 +121,7 @@
                 </a>
             {/await}
 
+            <!-- Resumes most recently edited survey -->
             {#await data.recents.survey then survey}
                 <a href="/app/surveys/edit/{survey.id}" class="contents">
                     <Button variant="primary" class="justify-start bg-brand-blue shadow">
@@ -132,6 +143,7 @@
         class="flex w-full flex-col items-center justify-start rounded-lg bg-white p-5 shadow lg:min-h-full lg:w-auto lg:flex-1"
     >
         <div class="flex w-full flex-1 flex-col items-center justify-center">
+            <!-- Show gravatar -->
             <img
                 src={getGravatarUrl(data.live.gravatarhash ?? '', data.user.gravatar ?? false)}
                 alt="{data.live.displayname}'s Profile Picture"
@@ -140,6 +152,7 @@
             <h1 class="mt-5 text-3xl font-bold">{data.live.displayname}</h1>
             <h2 class="mt-1 text-xl font-bold">@{data.live.username}</h2>
 
+            <!-- Update profile form -->
             <form
                 method="POST"
                 action="?/profile"
@@ -160,6 +173,7 @@
                 }}
                 on:submit={() => (saving = true)}
             >
+                <!-- Displayname and Username inputs -->
                 <div class="flex w-full flex-row items-center justify-between gap-3">
                     <div class="flex flex-1 flex-col items-center justify-start">
                         <p class="mt-3 w-full text-left">Display Name</p>
@@ -171,6 +185,7 @@
                     </div>
                 </div>
 
+                <!-- Toggle gravatar vs generic -->
                 <div class="flex w-full flex-row items-center justify-between gap-3">
                     <p class="mt-3 w-full text-left">
                         Use <a href="https://gravatar.com/" class="text-blue-500 hover:underline">Gravatar</a>
@@ -185,8 +200,10 @@
                     />
                 </div>
 
+                <!-- Pass user id to form handler -->
                 <input name="id" class="hidden" value={data.user.id} />
 
+                <!-- Submit form -->
                 <Button
                     type="submit"
                     class="mt-3"
@@ -201,11 +218,13 @@
                     {saving ? 'Saving...' : 'Save Changes'}
                 </Button>
 
+                <!-- Show error text if form fails -->
                 {#if form?.error}
                     <p class="mt-5 w-full text-center font-bold text-red-700">{form.error}</p>
                 {/if}
             </form>
 
+            <!-- Change email form -->
             <form
                 method="POST"
                 action="?/email"
@@ -229,6 +248,7 @@
                 <p class="mt-10 w-full text-left">Email Address</p>
                 <TextInput bind:value={data.user.email} name="email" type="email" autocomplete="email" class="w-full" />
 
+                <!-- Send email change confirmation -->
                 <Button
                     type="submit"
                     class="mt-3"
@@ -244,6 +264,7 @@
                 </Button>
             </form>
 
+            <!-- Change password form -->
             <form
                 method="POST"
                 action="?/password"
@@ -264,6 +285,7 @@
                 }}
                 on:submit={() => (savingPassword = true)}
             >
+                <!-- Send password change confirmation -->
                 <Button
                     type="submit"
                     class="mt-5"

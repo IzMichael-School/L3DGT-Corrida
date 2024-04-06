@@ -20,6 +20,7 @@
         <div class="flex w-full flex-1 flex-col items-center justify-center px-5 py-10 lg:w-2/3 lg:px-0">
             <h1 class="text-center text-4xl font-bold">Attribution</h1>
 
+            <!-- Context -->
             <p class="mt-16">
                 Voix was developed with ❤ by <a href="https://izmichael.com">IzMichael.</a>
             </p>
@@ -29,6 +30,7 @@
                 </a>
             </p>
 
+            <!-- Images -->
             <p class="mt-8">
                 Microphone image is from <a href="https://unsplash.com/@mattbotsford?utm_content=creditCopyText">
                     Matt Botsford
@@ -52,6 +54,7 @@
                 </a>
             </p>
 
+            <!-- Icons, Fonts, Tech -->
             <p class="mt-8">
                 Icons are from <a href="https://tabler.io/icons">Tabler Icons.</a>
             </p>

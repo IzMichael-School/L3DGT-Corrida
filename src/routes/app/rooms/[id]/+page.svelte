@@ -10,11 +10,13 @@
     import * as Toast from '$lib/toasts/toast';
     import Confirm from '$lib/Confirm.svelte';
     import IndividualAnswers from '$lib/IndividualAnswers.svelte';
-
-    import type { PageData } from './$types';
     import AggregateAnswers from '$lib/AggregateAnswers.svelte';
+
+    // Get data from server load function
+    import type { PageData } from './$types';
     export let data: PageData;
 
+    // Handle auto-updating subscription
     let unsubscribe: UnsubscribeFunc;
 
     onMount(async () => {
@@ -30,6 +32,7 @@
                         // eslint-disable-next-line no-self-assign
                         data.answers = data.answers;
 
+                        // Send toast notification when new answer is submitted
                         Toast.add('New Response from ' + e.record.name, {
                             type: 'info',
                         });
@@ -42,6 +45,7 @@
         unsubscribe?.();
     });
 
+    // Tab controller
     let tab = 'individual';
 </script>
 
@@ -53,6 +57,7 @@
     class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:max-h-full lg:flex-row lg:justify-center"
 >
     <div class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:w-1/3">
+        <!-- Room data editor -->
         <div class="flex w-full flex-1 flex-col items-center justify-start rounded-lg bg-white p-5 shadow">
             <h1 class="text-2xl font-bold">Room Editor</h1>
 
@@ -66,6 +71,7 @@
                 {/each}
             </div>
 
+            <!-- Survey picker -->
             <p class="mb-1 mt-5 w-full text-left text-sm">Selected Survey</p>
             <SurveyPicker
                 bind:value={data.room.survey}
@@ -88,6 +94,7 @@
 
             <span class="min-h-5 flex-1" />
 
+            <!-- Delete room, with confirmation -->
             <Confirm
                 action={async () => {
                     let working = Toast.add('Deleting...', {
@@ -107,6 +114,7 @@
                 <Button variant="danger" class="mb-2">Delete Room</Button>
             </Confirm>
 
+            <!-- Save room changes -->
             <Button
                 variant="primary"
                 on:click={async () => {
@@ -130,21 +138,26 @@
 
         <div class="flex w-full flex-col items-center justify-start rounded-lg bg-white p-5 shadow">
             <p class="w-full text-left text-sm">Room States</p>
+            <!-- Set room to waiting -->
             <Button
                 class="mt-1 w-full"
                 variant={data.room.state == 'waiting' ? 'primary' : 'secondary'}
                 on:click={async () => {
+                    // Send toast notif for setting
                     let working = Toast.add('Setting to "Waiting"...', {
                         type: 'info',
                         timeout: 60 * 60 * 1000,
                     });
+                    // Send db request, via local API
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
                         body: JSON.stringify({
                             state: 'waiting',
                         }),
                     });
+                    // Set local variable state
                     data.room.state = RoomsStateOptions.waiting;
+                    // Hide working toast, send completed toast
                     Toast.dismiss(working);
                     Toast.add('Set room to "Waiting".', {
                         type: 'success',
@@ -153,14 +166,17 @@
             >
                 Waiting
             </Button>
+            <!-- Set room to active -->
             <Button
                 class="mt-2 w-full"
                 variant={data.room.state == 'active' ? 'primary' : 'secondary'}
                 on:click={async () => {
+                    // Send toast notif for setting
                     let working = Toast.add('Setting to "Active"...', {
                         type: 'info',
                         timeout: 60 * 60 * 1000,
                     });
+                    // If room has selected survey
                     if (!data.room.survey) {
                         Toast.dismiss(working);
                         Toast.add('You must pick a survey first.', {
@@ -168,13 +184,16 @@
                         });
                         return;
                     }
+                    // Send db request, via local API
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
                         body: JSON.stringify({
                             state: 'active',
                         }),
                     });
+                    // Set local variable state
                     data.room.state = RoomsStateOptions.active;
+                    // Hide working toast, send completed toast
                     Toast.dismiss(working);
                     Toast.add('Set room to "Active".', {
                         type: 'success',
@@ -183,14 +202,17 @@
             >
                 Active
             </Button>
+            <!-- Set room to closed -->
             <Button
                 class="mt-2 w-full"
                 variant={data.room.state == 'closed' ? 'primary' : 'secondary'}
                 on:click={async () => {
+                    // Send toast notif for setting
                     let working = Toast.add('Setting to "Closed"...', {
                         type: 'info',
                         timeout: 60 * 60 * 1000,
                     });
+                    // If room has selected survey
                     if (!data.room.survey) {
                         Toast.dismiss(working);
                         Toast.add('You must pick a survey first.', {
@@ -198,13 +220,16 @@
                         });
                         return;
                     }
+                    // Send db request, via local API
                     await fetch('/app/rooms/' + data.room.id, {
                         method: 'PUT',
                         body: JSON.stringify({
                             state: 'closed',
                         }),
                     });
+                    // Set local variable state
                     data.room.state = RoomsStateOptions.closed;
+                    // Hide working toast, send completed toast
                     Toast.dismiss(working);
                     Toast.add('Set room to "Closed".', {
                         type: 'success',
@@ -219,6 +244,7 @@
     <div
         class="flex w-full flex-col items-center justify-start gap-3 lg:h-full lg:max-h-full lg:w-auto lg:flex-1 lg:overflow-y-auto"
     >
+        <!-- Tab selectors -->
         <div class="flex w-full flex-row items-center justify-between gap-3">
             <Button
                 variant="secondary"
@@ -247,6 +273,7 @@
             </Button>
         </div>
 
+        <!-- Answer format tabs -->
         {#if tab == 'individual'}
             <IndividualAnswers answers={data.answers ?? []} />
         {:else if tab == 'aggregate'}

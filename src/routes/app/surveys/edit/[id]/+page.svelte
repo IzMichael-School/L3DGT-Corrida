@@ -9,9 +9,11 @@
     import * as Toast from '$lib/toasts/toast';
     import Confirm from '$lib/Confirm.svelte';
 
+    // Get data from server load function
     import type { PageData } from './$types';
     export let data: PageData;
 
+    // Swap two items in an array by index
     function swap(array: Question[], x: number, y: number) {
         var b = array[x];
         array[x] = array[y];
@@ -35,6 +37,7 @@
 
         <span class="min-h-5 flex-1" />
 
+        <!-- Delete survey, requiring confirmation -->
         <Confirm
             action={async () => {
                 let working = Toast.add('Deleting...', {
@@ -54,6 +57,7 @@
             <Button variant="danger" class="mb-2">Delete Survey</Button>
         </Confirm>
 
+        <!-- Save changes -->
         <Button
             variant="primary"
             on:click={async () => {
@@ -82,6 +86,7 @@
             <h2 class="text-xl font-bold">Questions ({data.questions?.length})</h2>
         </div>
 
+        <!-- List of questions -->
         {#each data.questions ?? [] as question, i (question.id)}
             <div
                 class="w-full rounded-lg bg-white p-5 shadow transition-all duration-300 ease-in-out"
@@ -90,10 +95,12 @@
                 <p class="font-bold">Question {i + 1}.</p>
 
                 <div class="mt-3 flex w-full flex-col items-center justify-between gap-5 lg:flex-row">
+                    <!-- Edit question itself -->
                     <div class="flex w-full flex-col items-center justify-start gap-1 lg:w-auto lg:flex-1">
                         <p class="w-full text-sm">Question Label</p>
                         <TextInput bind:value={question.label} class="my-0 w-full" placeholder="Ask any question..." />
                     </div>
+                    <!-- Pick question type -->
                     <div class="flex w-full flex-col items-center justify-start gap-1 lg:w-auto lg:flex-1">
                         <p class="w-full text-sm">Question Type</p>
                         <select
@@ -122,6 +129,7 @@
                 </div>
 
                 <div class="mt-3 grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+                    <!-- If question is number or rating, use min and max options -->
                     {#if (question.type == 'number' || question.type == 'rating') && question.options?.max != undefined && question.options?.min != undefined}
                         <div class="flex w-full flex-col items-center justify-start gap-1">
                             <p class="w-full text-sm">Maximum Value</p>
@@ -135,6 +143,7 @@
                         {/if}
                     {/if}
 
+                    <!-- If question is boolean, use true or false -->
                     {#if question.type == 'boolean' && question.options?.true != undefined && question.options?.false != undefined}
                         <div class="flex w-full flex-col items-center justify-start gap-1">
                             <p class="w-full text-sm">True Label</p>
@@ -146,6 +155,7 @@
                         </div>
                     {/if}
 
+                    <!-- If question is multiple choice, use free options -->
                     {#if (question.type == 'radio' || question.type == 'checkboxes') && question.options != undefined}
                         {#each Object.keys(question.options) as entry (entry)}
                             <div
@@ -170,6 +180,7 @@
                             </div>
                         {/each}
 
+                        <!-- Add new option -->
                         <div class="flex flex-col items-center justify-end">
                             <Button
                                 variant="secondary"
@@ -185,6 +196,7 @@
                 </div>
 
                 <div class="mt-5 flex w-full flex-row items-center justify-end gap-3">
+                    <!-- Is question required -->
                     <p class="w-fit">Required Question</p>
                     <BooleanInput
                         variant="switch"
@@ -195,6 +207,7 @@
 
                     <span class="block min-h-5 flex-1" />
 
+                    <!-- Move question upwards -->
                     {#if i != 0}
                         <Button
                             class="w-fit"
@@ -209,6 +222,7 @@
                         </Button>
                     {/if}
 
+                    <!-- Move question downwards -->
                     {#if i != (data.questions?.length ?? 0) - 1}
                         <Button
                             class="w-fit"
@@ -231,6 +245,7 @@
                         </Button>
                     {/if}
 
+                    <!-- Delete question -->
                     <Button
                         class="w-fit"
                         variant="danger"
@@ -246,6 +261,7 @@
             </div>
         {/each}
 
+        <!-- Create new question -->
         <Button
             variant="primary"
             on:click={() => {

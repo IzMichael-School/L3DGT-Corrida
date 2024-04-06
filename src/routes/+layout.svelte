@@ -30,9 +30,13 @@
     <meta property="twitter:image" content="https://example.com/cover.png" />
 </svelte:head>
 
+<!-- Container for toast notifications -->
 <Toasts />
+
+<!-- Replaced with page content -->
 <slot />
 
+<!-- Show loading animation while page loading -->
 {#if $navigating}
     <Spinner />
 {/if}

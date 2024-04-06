@@ -8,8 +8,10 @@
     import IndividualAnswers from '$lib/IndividualAnswers.svelte';
     import AggregateAnswers from '$lib/AggregateAnswers.svelte';
 
+    // Realtime data subscription
     let unsubscribe: UnsubscribeFunc;
 
+    // Subscribe to changes in answers table
     onMount(async () => {
         unsubscribe = await pb
             .collection('answers')
@@ -31,6 +33,7 @@
             );
     });
 
+    // Unsubscribe from answers table
     onDestroy(() => {
         unsubscribe?.();
     });
@@ -43,9 +46,11 @@
         }
     }
 
+    // Get data from server load function
     import type { PageData } from './$types';
     export let data: PageData;
 
+    // Handle tabs
     let tab = 'code';
 </script>
 
@@ -54,19 +59,24 @@
 </svelte:head>
 
 <div class="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-slate-100">
+    <!-- Header -->
     <div class="flex h-16 w-full shrink-0 flex-row items-center justify-start gap-10 bg-stone-100 p-2">
         <div class="flex min-w-fit flex-row items-center justify-start">
+            <!-- Fullscreen Button -->
             <Button variant="secondary" class="mr-5 w-auto" on:click={() => toggleFullScreen()}>
                 <img src="/assets/icons/arrows-maximize.svg" alt="Maximise Icon" class="h-7 w-7" />
             </Button>
             <div class="flex h-full flex-row items-center justify-center gap-5">
+                <!-- Room Code -->
                 {#each data.room.code as char}
                     <span class="text-3xl font-bold">{char}</span>
                 {/each}
+                <!-- Join Link -->
                 <a href="https://izmm.uk/voix" class="ml-5 text-xl font-bold underline">izmm.uk/voix</a>
             </div>
         </div>
 
+        <!-- Tab navigation -->
         <div class="flex min-w-[32rem] flex-1 flex-row items-center gap-2">
             <Button
                 variant={tab == 'code' ? 'primary' : 'secondary'}
@@ -95,6 +105,7 @@
     </div>
 
     {#if tab == 'code'}
+        <!-- Code display, joining instructions -->
         <div class="flex h-full flex-1 flex-col items-center justify-center gap-16">
             <div class="flex w-full flex-row items-center justify-evenly">
                 {#each data.room.code as char}
@@ -107,10 +118,12 @@
             </h2>
         </div>
     {:else if tab == 'individual'}
+        <!-- Individual answer script display -->
         <div class="grid max-h-full w-full grid-cols-2 gap-5 overflow-auto p-5">
             <IndividualAnswers answers={data.answers ?? []} />
         </div>
     {:else if tab == 'aggregate'}
+        <!-- Answer graphs -->
         <div class="flex max-h-full w-full flex-col items-center justify-start gap-5 overflow-auto p-5">
             <AggregateAnswers answers={data.answers ?? []} />
         </div>

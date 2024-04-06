@@ -52,6 +52,7 @@
 
     $: checkRequired(answers);
 
+    // Run through all required questions, add to array if completed
     function checkRequired() {
         if (!data.expand?.survey.questions) return false;
         let tests: boolean[] = [];
@@ -61,9 +62,11 @@
             tests.push(answers[b.id] != '');
         }
         console.log(tests, answers);
+        // If all required questions are completed, and nickname is not blank
         return !tests.includes(false) && nickname?.length > 0;
     }
 
+    // Download text as markdown file
     function download(filename: string, text: string) {
         let element = document.createElement('a');
         element.setAttribute('href', 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text));
@@ -87,6 +90,7 @@
 <SupportIcon position="top-0 max-lg:left-0 lg:right-0 lg:flex-row-reverse" />
 
 <div class="flex h-screen w-screen flex-row items-center justify-between overflow-hidden">
+    <!-- Left side image -->
     <section class="hidden h-full flex-1 items-center justify-center shadow-inner lg:flex">
         <img
             src={pb.files.getUrl(data, data.banner) || '/assets/img/purple-microphone-unsplash.jpg'}
@@ -99,6 +103,7 @@
         <section class="relative flex h-full flex-1 flex-col items-center justify-center shadow-lg">
             <a href="/" class="absolute left-0 top-0 w-full p-2 text-left hover:underline">&leftarrow; Return Home</a>
 
+            <!-- Mobile view banner -->
             <div class="h-[25vh] w-full lg:hidden">
                 <img
                     src={pb.files.getUrl(data, data.banner) || '/assets/img/purple-microphone-unsplash.jpg'}
@@ -153,6 +158,7 @@
                 </p>
                 <TextInput bind:value={nickname} class="-mt-4 mb-10 w-full" placeholder="What do we call you?" />
 
+                <!-- Show question from component handler -->
                 {#if ready}
                     {#each data.expand?.survey.questions ?? [] as question, i}
                         {#if question.type == 'short-text'}
@@ -172,6 +178,7 @@
                         {/if}
                     {/each}
 
+                    <!-- Submit answers button -->
                     <Button
                         variant={completed && !submitting ? 'primary' : 'secondary'}
                         class={completed ? 'cursor-pointer' : 'cursor-not-allowed'}
@@ -205,8 +212,7 @@
             <div class="flex flex-1 flex-col items-center justify-center gap-5 px-5 py-10 lg:w-2/3 lg:px-0">
                 <h1 class="text-center text-3xl font-bold">Thanks for Participating!</h1>
 
-                <!-- <h2 class="mt-1 text-xl font-bold"></h2> -->
-
+                <!-- Download answers as markdown file -->
                 <Button
                     on:click={() => {
                         let timestamp = dayjs();
@@ -239,6 +245,7 @@
                 <h2 class="mt-1 text-center text-xl font-bold">Thanks for Participating!</h2>
 
                 {#if submitted}
+                    <!-- Download answers as markdown file -->
                     <Button
                         on:click={() => {
                             let timestamp = dayjs();

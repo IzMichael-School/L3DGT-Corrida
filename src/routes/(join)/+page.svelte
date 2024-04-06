@@ -10,6 +10,7 @@
     let loading = false,
         joinCode = '';
 
+    // Get page data from server
     import type { PageData } from './$types';
     export let data: PageData, form;
 </script>
@@ -18,6 +19,7 @@
     <title>Voix</title>
 </svelte:head>
 
+<!-- Show support link -->
 <SupportIcon position="max-lg:bottom-0 lg:top-0 left-0" />
 
 <div
@@ -30,6 +32,7 @@
             <h1 class="text-center text-6xl font-bold">Welcome to Voix</h1>
 
             <p class="mt-16 w-full text-center font-bold text-gray-700">Join a Room</p>
+            <!-- Join a Room form -->
             <form
                 method="POST"
                 class="mt-3 flex w-full flex-row"
@@ -41,6 +44,7 @@
                 }}
                 on:submit={() => (loading = true)}
             >
+                <!-- Room Code input -->
                 <TextInput
                     variant="outline"
                     class="my-0 w-full text-center"
@@ -49,6 +53,7 @@
                     name="code"
                     autocomplete="off"
                 />
+                <!-- Only shows when room code exists -->
                 <Button
                     type="submit"
                     variant={loading ? 'secondary' : 'default'}
@@ -60,14 +65,17 @@
                 </Button>
             </form>
 
+            <!-- If error, return value -->
             {#if form?.error}
                 <p class="mt-5 w-full text-center font-bold text-red-700">{form.error}</p>
             {/if}
 
+            <!-- With line on either side -->
             <p class="decor-line my-8 w-full text-center font-bold text-gray-400"><span>or</span></p>
 
             <p class="w-full text-center font-bold text-gray-700">Log in to Host Your Own</p>
             {#if data.user}
+                <!-- Shows for users already logged in -->
                 <Button variant="default" class="mt-3" on:click={() => goto('/redirect')}>
                     Welcome Back, {data.user.displayname}
                 </Button>
@@ -82,6 +90,7 @@
         <Copyright />
     </section>
 
+    <!-- Left side image -->
     <section class="flex h-[25vh] w-full items-center justify-center lg:h-full lg:w-auto lg:flex-1">
         <img
             src="/assets/img/purple-microphone-unsplash.jpg"
@@ -92,6 +101,7 @@
 </div>
 
 <style>
+    /* Line on either side of element with class */
     .decor-line {
         overflow: hidden;
         text-align: center;

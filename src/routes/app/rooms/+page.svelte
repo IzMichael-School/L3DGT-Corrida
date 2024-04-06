@@ -4,8 +4,11 @@
     import type { UnsubscribeFunc } from 'pocketbase';
     import { onDestroy, onMount } from 'svelte';
 
+    // Get data from server load function
     import type { PageData } from './$types';
     export let data: PageData;
+
+    // Handle room updated subscription
     let unsubscribe: UnsubscribeFunc;
 
     onMount(async () => {
@@ -28,6 +31,7 @@
 </div>
 
 <div class="grid grid-cols-2 gap-5 rounded-lg bg-white p-5 shadow lg:grid-cols-6">
+    <!-- Create new room -->
     <button
         class="flex aspect-[3/4] flex-col items-center justify-center gap-2 rounded-lg border-2 border-zinc-100 bg-zinc-100 p-2 shadow hover:border-zinc-200 hover:bg-brand/20"
         on:click={async () => {
@@ -41,6 +45,7 @@
         <p>Create new Room</p>
     </button>
 
+    <!-- List rooms -->
     {#each data.rooms as room}
         <a
             class="flex aspect-[3/4] max-h-full flex-col items-center justify-start gap-1 overflow-hidden rounded-lg border-2 border-zinc-100 bg-zinc-100 p-2 shadow hover:border-zinc-200"

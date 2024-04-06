@@ -4,6 +4,7 @@
     import { goto } from '$app/navigation';
     import { browser } from '$app/environment';
 
+    // If not logged in and running in browser, redirect to login
     $: if (!pb.authStore.isValid && browser) {
         goto('/login');
     }
@@ -12,12 +13,15 @@
 <div
     class="flex h-screen max-h-screen w-full flex-col-reverse items-center justify-start overflow-hidden bg-stone-100 lg:flex-row"
 >
+    <!-- Navbar -->
     <Navigation />
 
+    <!-- Page content -->
     <div class="flex h-full max-h-full w-full flex-1 shrink-0 flex-col overflow-auto p-3 lg:w-auto">
         <slot />
     </div>
 
+    <!-- Mobile header -->
     <div
         class="flex w-full flex-row items-center justify-center rounded-b-xl border-b-2 border-r-gray-200 bg-white p-3 shadow-lg lg:hidden"
     >

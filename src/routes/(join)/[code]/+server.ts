@@ -2,8 +2,10 @@ import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ locals, request }) => {
+    // Parse formdata as JSON
     const data = await request.json();
 
+    // Send answers to db as new row
     try {
         await locals.pb.collection('answers').create({
             name: data.name,
